@@ -1,17 +1,19 @@
 ---
 layout: base
-permalink: /login/
-title: Login
+permalink: /register/
+title: Register
 ---
 
 <table>
     <tr>
-        <th><label for="uid">User ID</label></th>
+        <th><label for="name">Name</label></th>
         <th><label for="password">Password</label></th>
+        <th><label for="dob">Birthday</label></th>
     </tr>
     <tr>
-        <td><input type="text" name="uid" id="uid" required></td>
+        <td><input type="text" name="name" id="name" required></td>
         <td><input type="password" name="password" id="password" required></td>
+        <td><input type="date" name="dob" id="dob" required></td>
         <td ><button onclick="create_User()">Create</button></td>
     </tr>
 </table>
@@ -19,13 +21,15 @@ title: Login
 <script>
     function create_User() {
         // Extract data from inputs
-        const uid = document.getElementById("uid").value;
+        const name = document.getElementById("name").value;
         const password = document.getElementById("password").value;
+        const dob = document.getElementById("dob").value;
     
         // Prepare data for POST request
         const userData = {
-            uid: uid,
-            password: password
+            name: name,
+            password: password,
+            dob: dob
         };
     
         // Prepare request options
@@ -34,12 +38,11 @@ title: Login
             headers: new Headers({'content-type': 'application/json'}),
             body: JSON.stringify(userData), // Convert data object to JSON string
             mode: 'cors',
-            credentials: 'include'
         };
     
         // URL for Create API
-        const url = 'http://127.0.0.1:8086/api/users/authenticate';
-       //const url = 'http://127.0.0.1:8086/api/users/authenticate';
+        // const url = 'http://127.0.0.1:8086/api/jwt_auth/register';
+       const url = 'http://127.0.0.1:8086/api/users/';
         // Async fetch API call to the database to create a new user
         fetch(url, requestOptions)
             .then(response => {
@@ -49,13 +52,13 @@ title: Login
                     console.log(errorMsg);
                     return;
                 }
-                console.log(response)
+    
                 // Response contains valid result
                 response.json().then(data => {
                     if (data !== null) {
                         console.log(data)
-                        document.cookie = "name="+data;
-                        window.location.href = '{{site.baseurl}}/authentication';
+                        document.cookie = "auth="+data;
+                        window.location.href = '{{site.baseurl}}/userId?userId=' + data;
                     }
                 });
             })
