@@ -1,0 +1,21 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+}
+
+.left-half {
+    flex: 1;
+    background-image: url('your-background-image-url.jpg'); /* Specify your background image URL */
+    background-size: cover;
+    background-position: center;
+}
+
+.right-half {
+    flex: 1;
+    padding: 20px;
+}
