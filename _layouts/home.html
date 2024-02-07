@@ -3,78 +3,68 @@ layout: base
 ---
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Page</title>
-    <link rel="stylesheet" href="signupstyles.css">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="styleshome.css">
 </head>
+
 <body>
-    <div class="container">
-        <div class="left-half">
-            <table>
-                <tr>
-                    <th><label for="name">Name</label></th>
-                    <th><label for="uid">Uid</label></th>
-                    <th><label for="password">Password</label></th>
-                </tr>
-                <tr>
-                    <td><input type="text" name="name" id="name" required></td>
-                    <td><input type="text" name="uid" id="uid" required></td>
-                    <td><input type="password" name="password" id="password" required></td>
-                    <td><button class='btn' onclick="create_User()">Create</button></td>
-                </tr>
-            </table>
-        </div>
-    </div>
+    <div id="errorMessage"></div>
+    <form onsubmit="login_user(event)">
+        <p>
+            <label for="uid">User ID:</label>
+            <input type="text" name="uid" id="uid" required>
+        </p>
+        <p>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+        </p>
+        <p>
+            <button class="button-spacing" type="submit">Log In</button>
+            <a href="127.0.0.1:4000/jobly/signup">Dont have an account? Sign up here</a>
+    </form>
 
     <script>
-        function create_User() {
-            // Extract data from inputs
-            const name = document.getElementById("name").value;
-            const uid = document.getElementById("uid").value;
-            const password = document.getElementById("password").value;
-        
-            // Prepare data for POST request
-            const userData = {
-                name: name,
-                uid: uid,
-                password: password
-            };
-        
-            // Prepare request options
+        function login_user(event) {
+            event.preventDefault();
+
+            const enteredUid = document.getElementById("uid").value;
+            const enteredPassword = document.getElementById("password").value;
+
+            const myHeaders = new Headers();
+            myHeaders.append("Accept", "*/*");
+            myHeaders.append("Accept-Language", "en-US,en;q=0.9");
+            myHeaders.append("Content-Type", "application/json");
+
+            const raw = JSON.stringify({
+                "uid": enteredUid,
+                "password": enteredPassword
+            });
+
             const requestOptions = {
                 method: 'POST',
-                headers: new Headers({'content-type': 'application/json'}),
-                body: JSON.stringify(userData), // Convert data object to JSON string
-                // mode: 'no-cors',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
             };
-        
-            // URL for Create API
-            const url = 'http://127.0.0.1:8086/api/users/';
-        
-            // Async fetch API call to the database to create a new user
-            fetch(url, requestOptions)
+
+            fetch("http://127.0.0.1:8086/api/users/authenticate", requestOptions)
                 .then(response => {
-                    // Handle server response
-                    if (response.status !== 200) {
-                        const errorMsg = 'Database response error: ' + response.status;
-                        console.log(errorMsg);
-                        return;
+                    if (response.ok) {
+                        console.log("User logged in successfully");
+                        window.location.href = "https://tanav-kambhampati.github.io/student2/";
+                    } else {
+                        console.error("User login failed");
+                        const errorMessageDiv = document.getElementById('errorMessage');
+                        errorMessageDiv.innerHTML = '<label style="color: red;">User Login Failed</label>';
                     }
-        
-                    // Response contains valid result
-                    response.json().then(data => {
-                        console.log(data);
-                        // Handle the successful response, if needed
-                    });
                 })
-                .catch(error => {
-                    // Handle fetch errors
-                    console.error('Fetch error:', error);
-                });
+                .catch(error => console.log('error', error));
         }
-        
     </script>
 </body>
+
 </html>
