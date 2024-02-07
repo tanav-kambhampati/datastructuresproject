@@ -1,0 +1,78 @@
+---
+layout: base
+permalink: /freelancer/
+---
+
+
+<table>
+    <tr>
+        <th><label for="name">Name</label></th>
+        <th><label for="password">Password</label></th>
+        <th><label for="dob">Birthday</label></th>
+        <th><label for="status">Status</label></th> <!-- Added label for accessibility -->
+    </tr>
+    <tr>
+        <td><input type="text" name="name" id="name" required></td>
+        <td><input type="password" name="password" id="password" required></td>
+        <td><input type="date" name="dob" id="dob" required></td>
+        <td>
+            <select name="status" id="status" required> <!-- Changed to select element -->
+                <option value="freelancer">Freelancer</option>
+                <option value="employer">Employer</option>
+            </select>
+        </td>
+        <td><button onclick="create_User()">Create</button></td>
+    </tr>
+</table>
+<script>
+function create_User() {
+    // Extract data from inputs
+    const name = document.getElementById("name").value;
+    const password = document.getElementById("password").value;
+    const dob = document.getElementById("dob").value;
+    const status = document.getElementById("status").value; // Get the value of the status dropdown
+
+    // Prepare data for POST request
+    const userData = {
+        name: name,
+        password: password,
+        dob: dob,
+        status: status // Add the status value to the userData object
+    };
+
+    // Prepare request options
+    const requestOptions = {
+        method: 'POST',
+        headers: new Headers({'content-type': 'application/json'}),
+        body: JSON.stringify(userData), // Convert data object to JSON string
+        mode: 'cors',
+    };
+
+    // URL for Create API
+    // const url = 'http://127.0.0.1:8086/api/jwt_auth/register';
+    const url = 'http://127.0.0.1:8086/api/users/';
+    // Async fetch API call to the database to create a new user
+    fetch(url, requestOptions)
+        .then(response => {
+            // Handle server response
+            if (response.status !== 200) {
+                const errorMsg = 'Database response error: ' + response.status;
+                console.log(errorMsg);
+                return;
+            }
+
+            // Response contains valid result
+            response.json().then(data => {
+                if (data !== null) {
+                    console.log(data)
+                    document.cookie = "auth="+data;
+                    window.location.href = '{{site.baseurl}}/userId?userId=' + data;
+                }
+            });
+        })
+        .catch(error => {
+            // Handle fetch errors
+            console.error('Fetch error:', error);
+        });
+}
+</script>
