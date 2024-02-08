@@ -1,20 +1,8 @@
 ---
-layout: base
-permalink: /login/
+layout: base 
 ---
+    
 
-<table>
-    <tr>
-        <th><label for="uid">User ID</label></th>
-        <th><label for="password">Password</label></th>
-    </tr>
-    <tr>
-        <td><input type="text" name="uid" id="uid" required></td>
-        <td><input type="password" name="password" id="password" required></td>
-        <td ><button onclick="create_User()">Create</button></td>
-    </tr>
-</table>
-<a href="{{site.baseurl}}/usertype/">Don't have an account? Sign up here!</a>
 
 <script>
     function create_User() {
@@ -67,26 +55,86 @@ permalink: /login/
     
 </script>
 
+<html lang="en">
+
+<script type="text/javascript" src="{{ '/assets/js/search.js' | relative_url }}"></script>
+<script type="text/javascript" src="{{ '/assets/js/vendor/lunr.min.js' | relative_url }}"></script>
+
+<div class="search">
+    <div class="search-input-wrap">
+    <input type="text" class="js-search-input search-input input-block form-control" tabindex="0" placeholder="Search {{ site.title }} Keywords/Company/Jobtitle" aria-label="Search {{ site.title }}" autocomplete="off">
+    </div>
+    <br>
+    <div class="js-search-results search-results-wrap"></div>
+</div>
 
 
+<style>
+    /* Style for the container div */
+    .usertype-container {
+        text-align: center;
+        margin: 20px auto; /* Center align and provide top margin */
+        background-color: #b8b1b1;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 800px; /* Set maximum width */
+    }
+
+    /* Style for the title */
+    .usertype-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: black;
+    }
 
 
+    .usertype-question {
+        color: black;
+    }
 
+    /* Style for the buttons */
+    .usertype-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
+    .usertype-button {
+        padding: 10px 20px;
+        font-size: 22px;
+        margin: 0 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #ececec;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
+    .usertype-button:hover {
+        background-color: #0056b3;
+    }
 
+    /* Style for the 'Or' text */
+    .usertype-or {
+        font-size: 20px;
+        margin: 0 10px;
+        color: #000000;
+    }
 
+</style>
 
-
-
-
-
-
-
-
-
-
-
+<body>
+    <div class="usertype-container">
+        <h1 class="usertype-title">New to Jobly? Register</h1>
+        <p class="usertype-question">Are you:</p>
+        <div class="usertype-buttons">
+            <button class="usertype-button"><a href="{{site.baseurl}}/freelancer">Searching for a job</a></button>
+            <p class="usertype-or">Or</p>
+            <button class="usertype-button"><a href="{{site.baseurl}}/employer">Employing people</a></button>
+        </div>
+    </div>
+</body>
 
 
 
