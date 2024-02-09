@@ -1,0 +1,385 @@
+---
+layout: base
+title: Daily Plan
+permalink: /dailyPlan/
+---
+
+<style>
+    body {
+        background: lightgray;
+        width: 100vw;
+        height: 100vh;
+      }
+      .site-header
+      {
+          background-color: darkblue;
+      }
+  
+      .site-header .wrapper
+      {
+          background-color: darkblue;
+      }
+  
+      .page-content
+      {
+          background-color: white;
+      }
+  
+      .wrapper
+      {
+          background-color: white;
+      }
+  
+      .h-card
+      {
+          background-color: rgb(0, 0, 0);
+      }
+  
+      .site-footer
+      {
+          background-color: darkgreen;
+      }
+  
+      .site-footer .wrapper
+      {
+          background-color:darkgreen;
+      }
+  
+      .site-nav .trigger
+      {
+          background-color: darkblue;
+      }
+      .page-link 
+      {
+          background-color: darkblue; /* Set background color to dark blue for page links */
+      }
+      
+      .text-center {
+        color: rgb(10, 10, 10); /* Set font color to black for text elements with class text-center */
+    }
+    
+      /*
+    
+    body {
+        Font-Family: 'Noto Serif', Serif;
+        font-size: 16px;
+        line-height: 1;
+      }
+      
+      h1 {
+        font-family: 'Varela Round', sans-serif;
+      }
+      
+      */
+      textarea {
+        background: transparent;
+        border: none;
+        resize: none;
+        color: #a4b6d6;
+        border-left: 1px solid #88898C;
+        padding: 10px;
+      }
+      
+      .jumbotron {
+        text-align: center;
+        background-color: transparent;
+        color: black;
+        border-radius: 0;
+        border-bottom: 10px solid #88898C;
+      }
+      
+      .description {
+        white-space: pre-wrap;
+      }
+      
+      .time-block {
+        text-align: center;
+        border-radius: 15px;
+      }
+      */
+      .row {
+        white-space: pre-wrap;
+        height: 80px;
+        border-top: 1px solid white;;
+      }
+      
+      .hour {
+        background-color: #ffffff;
+        color: #000000;
+        border-top: 1px dashed #88898C;
+      }
+      
+      .past {
+        background-color: #F2EDDC;
+        color: white;
+      }
+      
+      .present {
+        background-color: #D96A29;
+        color: white;
+      }
+      
+      .future {
+        background-color: #69AFBF;
+        color: white;
+      }
+      
+      .saveBtn {
+        border: 1px solid #88898C;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+        background-color: #152C40;
+        color: white;
+      }
+      
+      .saveBtn i:hover {
+        font-size: 25px;
+        transition: all .3s ease-in-out;
+      }
+
+      
+</style>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+        <!-- linking bootstrap -->
+        <link
+          rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        />
+    
+        <!-- linking fonts -->
+        <link
+          rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+          crossorigin="anonymous"
+        />
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&family=Varela+Round&display=swap" rel="stylesheet">
+    
+    
+        <!-- linking css -->
+        <link rel="stylesheet" href="Assets/style.css" />
+        
+        <title>Work Day Scheduler</title>
+      </head>
+    
+      <body>
+        <header class="jumbotron text-center">
+          <h1 class="display-3">Daily Plan Showcase </h1>
+          <p class="lead">A simple calendar app for scheduling your work day. This is a showcase for Rayyan Darugar</p>
+          <p class="lead">Click the Save Button to the right of your task to save the assignment (closed for showcase) and open a timer</p>
+          <p id="currentDay" class="lead"></p>
+        </header>
+    
+        <!-- Timeblocks 9AM to 5PM -->
+        <div class="container">
+          <div class="row time-block" id="9">
+            <div class="col-1 hour pt-2">5:30 PM</div>
+            <textarea class="col-10 plan" readonly> Get Home From School </textarea>
+            <button onclick="openTimerPopup30()" class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+          </div>
+    
+          <div class="row time-block" id="10">
+            <div class="col-1 hour pt-2">6:00 PM</div>
+            <textarea class="col-10 plan" readonly> Walk Dog & Eat </textarea>
+            <button onclick="openTimerPopup1()" class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+          </div>
+    
+          <div class="row time-block" id="11">
+            <div class="col-1 hour pt-2">7:00 PM</div>
+            <textarea class="col-10 plan" readonly> AP Calc HW </textarea>
+            <button onclick="openTimerPopup1()" class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+          </div>
+    
+          <div class="row time-block" id="12">
+            <div class="col-1 hour pt-2" value="12PM">8:00 PM</div>
+            <textarea class="col-10 plan" readonly> 30 Min Break </textarea>
+            <button onclick="openTimerPopup30()" class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+          </div>
+    
+          <div class="row time-block" id="13">
+            <div class="col-1 hour pt-2">8:30 PM</div>
+            <textarea class="col-10 plan" readonly> APUSH HW </textarea>
+            <button onclick="openTimerPopup1()" class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+          </div>
+    
+          <div class="row time-block" id="14">
+            <div class="col-1 hour pt-2">9:30 PM</div>
+            <textarea class="col-10 plan" readonly> APEL HW </textarea>
+            <button onclick="openTimerPopup1()" class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+          </div>
+    
+          <div class="row time-block" id="15">
+            <div class="col-1 hour pt-2">10:30 PM</div>
+            <textarea class="col-10 plan" readonly> Robotics Grant Applications </textarea>
+            <button onclick="openTimerPopup30()" class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+          </div>
+    
+          <div class="row time-block" id="16">
+            <div class="col-1 hour pt-2">11:00 PM</div>
+            <textarea class="col-10 plan" readonly> AP CSP Work </textarea>
+            <button onclick="openTimerPopup1()" class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+          </div>
+    
+          <div class="row time-block" id="17">
+            <div class="col-1 hour pt-2">12:00 AM</div>
+            <textarea class="col-10 plan" readonly> GO TO SLEEP </textarea>
+            <button class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+          </div>
+    
+        </div>
+    
+        <!-- js scripts, jquery, moment.js, bootstrap js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <script src="Assets/script.js"></script>
+      </body>
+</html>
+
+
+
+
+
+<script>
+    /**
+    * CRITERIA
+    */
+
+    // GIVEN I am using a daily planner to create a schedule
+    // WHEN I open the planner
+    // THEN the current day is displayed at the top of the calendar
+    // WHEN I scroll down
+    // THEN I am presented with time blocks for standard business hours
+    // WHEN I view the time blocks for that day
+    // THEN each time block is color-coded to indicate whether it is in the past, present, or future
+    // WHEN I click into a time block
+    // THEN I can enter an event
+    // WHEN I click the save button for that time block
+    // THEN the text for that event is saved in local storage
+    // WHEN I refresh the page
+    // THEN the saved events persist
+
+    /**
+    * DEFINE VARIABLES
+    */
+
+    var saveBtn = $(".saveBtn");
+
+    /**
+    * FUNCTIONS
+    */
+
+    // current day is displayed at the top of the calendar
+    $("#currentDay").text(moment().format('dddd MMMM Do YYYY'));
+
+    // each time block is color-coded to indicate whether it is in the past, present, or future
+    function timeBlockColor() {
+        var hour = moment().hours();
+
+        $(".time-block").each(function() {
+            var currHour = parseInt($(this).attr("id"));
+
+            // console.log(this); //each time-block
+
+            if (currHour > hour) {
+                $(this).addClass("future");
+            } else if (currHour === hour) {
+                $(this).addClass("present");
+            } else {
+                $(this).addClass("past");
+            }
+        })
+    };
+
+    // WHEN I click the save button for that time block
+    saveBtn.on("click", function() {
+
+        // console.log(this); //save button
+        var time = $(this).siblings(".hour").text();
+        var plan = $(this).siblings(".plan").val();
+
+        // THEN the text for that event is saved in local storage
+        localStorage.setItem(time, plan);
+    });
+
+    // WHEN I refresh the page
+    // THEN the saved events persist
+    function usePlanner() {
+
+        $(".hour").each(function() {
+            var currHour = $(this).text();
+            var currPlan = localStorage.getItem(currHour);
+
+            // console.log(this);
+            // console.log(currHour);
+
+            if(currPlan !== null) {
+                $(this).siblings(".plan").val(currPlan);
+            }
+        });
+    }
+
+    /**
+    * CALL FUNCTIONS
+    */
+
+    timeBlockColor();
+    usePlanner();
+</script>
+
+
+<style>
+    .page-link 
+    {
+        background-color: darkblue; /* Set background color to dark blue for page links */
+        border: transparent
+    }
+
+    .site-header
+    {
+      border-top: 0
+    }
+</style>
+
+<style>
+  .plan[readonly] {
+    font-size: 32px;
+    height: 65px;
+    display: flex; /* Enable flexbox layout */
+    text-align: center; /* Center the text horizontally */
+    background: transparent;
+    overflow: hidden;
+  }
+
+  .textarea.col-10.plan[readonly]
+  {
+    background-color: transparent;
+  }
+</style>
+
+
+<script>
+function openTimerPopup1() {
+    // Specify the URL of the timer page
+    var timerURL = "/schedulingappfrontend/timer2.html";
+    
+    // Open the timer page in a new window with specific dimensions
+    var timerPopup = window.open(timerURL, "Timer Popup", "width=450, height=350");
+}
+</script>
+
+<script>
+  function openTimerPopup30() {
+      // Specify the URL of the timer page
+      var timerURL = "/schedulingappfrontend/timer.html";
+      
+      // Open the timer page in a new window with specific dimensions
+      var timerPopup = window.open(timerURL, "Timer Popup", "width=450, height=350");
+  }
+  </script>

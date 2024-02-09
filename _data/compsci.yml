@@ -1,11 +1,16 @@
 # CSP course meta data
 Unit1:
-  title: Game Project and Experiments
-  description:  Build team repository.  Discover assets for project.  Brain write. Perform a sketch of ideas.
+  title: Frontend, Backend, Deployment, and Ideation
+  description:  Create frontend and backend repository. Share the repositories with team. Deploy backend repository on AWS. Plan using scrum boards.
   start: 0
   end: 1
 Unit2:
   title: Start Coding
-  description: Start Agile development process. Move planning to GitHub Issues and Projects.
+  description: Start implementation of planning process. Tangible project should be done.
   start: 2
   end: 2
+Unit3:
+  title: Finishing Touches
+  description: Projct should be tangible and finished. Last touches should be made.
+  start: 3
+  end: 4

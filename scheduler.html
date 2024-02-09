@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="stylesheet" href="../assets/css/scheduler.css">
+</head>
+
+<body>
+	<header class="header-title">
+		<h1>Task Scheduler</h1>
+	</header>
+	<main>
+		<div class="task-form">
+			<input type="text" id="task" placeholder="Enter task...">
+			<select id="priority">
+				<option value="top">Top Priority</option>
+				<option value="middle">Middle Priority</option>
+				<option value="low">Less Priority</option>
+			</select>
+			<!-- user input to add task -->
+			<input type="date" id="deadline">
+			<button id="add-task">Add Task</button>
+		</div>
+		<div class="task-list" id="task-list">
+			<!-- each time user adds task, it is added here using javascript -->
+		</div>
+		<script src="../assets/js/scheduler.js"></script>
+	</main>
+</body>
+
+</html>
