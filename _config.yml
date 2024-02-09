@@ -4,6 +4,7 @@ owner_name: Aidan Lau
 github_username: AidanLau10
 github_repo: "joblyFrontend"
 baseurl: "/joblyfrontend"
+repository: AidanLau10/joblyFrontend
 future: true
 remote_theme: jekyll/minima
 minima:
