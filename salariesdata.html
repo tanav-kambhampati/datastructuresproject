@@ -1,0 +1,100 @@
+---
+layout: base
+permalink: /salary/
+title: Salary
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobly Salaries</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+        header {
+            background-color: #2456a6;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .salary-card {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .salary-card h2 {
+            margin-top: 0;
+            color: #2456a6;
+        }
+        .salary-card p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Indeed Salaries</h1>
+    </header>
+    <div class="container">
+        <button class="button" onclick="loadJobData()">Load Fake Data</button>
+        <button class="button" onclick="clearData()">Clear Data</button>    
+        <div id="salaryContainer"></div>
+    </div>
+    <script>
+        function loadFakeData() {
+            const salaryContainer = document.getElementById('salaryContainer');
+            // Clear existing data
+            salaryContainer.innerHTML = '';
+            // Fake salary data
+            const fakeSalaries = [
+                { title: 'Software Engineer', salary: '$100,000' },
+                { title: 'Data Scientist', salary: '$110,000' },
+                { title: 'UX Designer', salary: '$90,000' },
+                { title: 'Project Manager', salary: '$95,000' },
+                { title: 'Marketing Specialist', salary: '$85,000' }
+            ];
+            // Display fake salaries
+            fakeSalaries.forEach(salary => {
+                const card = document.createElement('div');
+                card.classList.add('salary-card');
+                const title = document.createElement('h2');
+                title.textContent = salary.title;
+                const amount = document.createElement('p');
+                amount.textContent = 'Average Salary: ' + salary.salary;
+                card.appendChild(title);
+                card.appendChild(amount);
+                salaryContainer.appendChild(card);
+            });
+        }
+        function clearData() {
+            document.getElementById('salaryContainer').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
