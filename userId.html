@@ -1,0 +1,27 @@
+---
+layout: base
+permalink: /userId/
+---
+
+<body>
+    Your userid is: <p id="information"></p>
+</body>
+
+<script>
+    let informationData = document.getElementById('information');
+
+    let urlParams = new URLSearchParams(window.location.search);
+    let userID = urlParams.get('userId');
+
+    informationData.innerHTML = userID;
+
+
+    let informationData1 = document.getElementById('information');
+
+    let urlParams1 = new URLSearchParams(window.location.search);
+    let userID1 = urlParams.get('userId');
+
+    informationData1.innerHTML = userID;
+
+</script>
+

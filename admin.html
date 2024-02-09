@@ -1,0 +1,20 @@
+---
+layout: base
+permalink: /admin/
+---
+
+<body>
+    Your role is: <p id="ability"></p>
+</body>
+
+<script>
+    let responseData = document.getElementById('ability');
+
+    let websiteurlParams = new URLSearchParams(window.location.search);
+    let jwt = websiteurlParams.get('jwt');
+
+    responseData.innerHTML = jwt;
+
+
+</script>
+
