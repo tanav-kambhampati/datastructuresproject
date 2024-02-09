@@ -1,70 +1,83 @@
 ---
 layout: base 
 ---
-<!DOCTYPE html>
-<html lang="en">
 
-<style>
-    /* Style for the container div */
-    .usertype-container {
-        text-align: center;
-        margin: 20px auto; /* Center align and provide top margin */
-        background-color: #b8b1b1;
-        padding: 20px;
-        border-radius: 10px;
-        max-width: 400px; /* Set maximum width */
-    }
+<div class="home">
+  {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
 
-    /* Style for the title */
-    .usertype-title {
-        font-size: 24px;
-        margin-bottom: 20px;
-        color: black;
-    }
+  {{ content | markdownify }}
 
 
-    .usertype-question {
-        color: black;
-    }
+  {% if site.paginate %}
+    {% assign rawposts = paginator.posts %}
+  {% else %}
+    {% assign rawposts = site.posts %}
+  {% endif %}
 
-    /* Style for the buttons */
-    .usertype-buttons {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+  <!-- Hide posts if front matter flag hide:true -->
+  {% assign posts = ''|split:'' %}
+  {% for post in rawposts %}
+    {% if post.hide != true %}
+      {% assign posts = posts|push:post%}
+    {% endif %}
+  {% endfor %}
 
-    .usertype-button {
-        padding: 10px 20px;
-        font-size: 18px;
-        margin: 0 10px;
-        border: none;
-        border-radius: 5px;
-        background-color: #ececec;
-        color: #fff;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+  <!-- Sort posts by rank, then date -->
+  {% assign grouped_posts = posts | group_by: "sticky_rank" | sort: "name", "last" %}
+  {% assign sticky_posts = ''|split:'' %}
+  {% assign non_sticky_posts = '' | split:'' %}
 
-    .usertype-button:hover {
-        background-color: #0056b3;
-    }
+ 
+  {% for gp in grouped_posts %}
+    {%- if gp.name == "" -%}
+      {% assign non_sticky_posts = gp.items | sort: "date" | reverse %}
+    {%- else %}
+      {% assign sticky_posts = sticky_posts | concat: gp.items %}
+    {%- endif -%}
+  {% endfor %}
 
-    /* Style for the 'Or' text */
-    .usertype-or {
-        font-size: 20px;
-        margin: 0 10px;
-        color: #000000;
-    }
-</style>
-<body>
-    <div class="usertype-container">
-        <h1 class="usertype-title">Welcome</h1>
-        <p class="usertype-question">Are you:</p>
-        <div class="usertype-buttons">
-            <button class="usertype-button"><a href="{{site.baseurl}}/freelancer">Searching for a job</a></button>
-            <p class="usertype-or">Or</p>
-            <button class="usertype-button"><a href="{{site.baseurl}}/employer">Employing people</a></button>
-        </div>
-    </div>
-</body>
+   <!-- Assemble final sorted posts array -->
+  {% assign sticky_posts = sticky_posts | sort: "sticky_rank", "last" %}
+  {% assign posts = sticky_posts | concat: non_sticky_posts %}
+
+  {%- if posts.size > 0 -%}
+    {%- if page.list_title -%}
+      <h2 class="post-list-heading">{{ page.list_title }}</h2>
+    {%- endif -%}
+    <ul class="post-list">
+      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+      {%- for post in posts -%}
+      <li>
+        {%- if site.show_image -%}
+            {%- include post_list_image_card.html -%}
+        {% else %}
+            {%- include post_list_image_card.html -%}    
+        <!-- {%- include post_list.html -%} -->
+        {%- endif -%}
+      </li>
+      {%- endfor -%}
+    </ul>
+
+    {% if site.paginate and site.posts.size > site.paginate %}
+      <div class="pager">
+        <ul class="pagination">
+        {%- if paginator.previous_page %}
+          <li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
+        {%- else %}
+          <li><div class="pager-edge">•</div></li>
+        {%- endif %}
+          <li><div class="current-page">{{ paginator.page }}</div></li>
+        {%- if paginator.next_page %}
+          <li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
+        {%- else %}
+          <li><div class="pager-edge">•</div></li>
+        {%- endif %}
+        </ul>
+      </div>
+    {%- endif %}
+
+  {%- endif -%}
+
+</div>
