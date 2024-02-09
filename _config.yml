@@ -2,7 +2,7 @@ title: Jobly
 description: "December 2023 to June 2024"
 owner_name: Aidan Lau
 github_username: AidanLau10
-github_repo: "jobly"
+github_repo: "joblyFrontend"
 baseurl: "/jobly"
 remote_theme: jekyll/minima
 minima:
