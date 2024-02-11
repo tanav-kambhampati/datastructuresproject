@@ -54,8 +54,8 @@ title: Login
                 response.json().then(data => {
                     if (data !== null) {
                         console.log(data)
-                        document.cookie = "name="+data;
-                        window.location.href = '{{site.baseurl}}/authentication';
+                        document.cookie = `id=${data}; expires=Thu, 20 Jan 2025 00:00:00 UTC; path=/;`;
+                        //window.location.href = '{{site.baseurl}}/authentication';
                     }
                 });
             })
