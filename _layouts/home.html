@@ -68,6 +68,75 @@ layout: base
     <div class="js-search-results search-results-wrap"></div>
 </div>
 
+<div class="container" style="background-color: rgb(15, 7, 86); padding: 20px; border-radius: 5px;">
+    <table>
+        <tr>
+            <td colspan="2"><label for="login" style="font-size: 24px;">Login to Jobly!</label></td>
+        </tr>
+        <tr>
+            <th><label for="uid">User ID</label></th>
+            <th><label for="password">Password</label></th>
+        </tr>
+        <tr>
+            <td><input type="text" name="uid" id="uid" required></td>
+            <td><input type="password" name="password" id="password" required></td>
+            <td><button onclick="create_User()">Create</button></td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    function create_User() {
+        // Extract data from inputs
+        const uid = document.getElementById("uid").value;
+        const password = document.getElementById("password").value;
+    
+        // Prepare data for POST request
+        const userData = {
+            uid: uid,
+            password: password
+        };
+    
+        // Prepare request options
+        const requestOptions = {
+            method: 'POST',
+            headers: new Headers({'content-type': 'application/json'}),
+            body: JSON.stringify(userData), // Convert data object to JSON string
+            mode: 'cors',
+            credentials: 'include'
+        };
+    
+        // URL for Create API
+        const url = 'http://127.0.0.1:8086/api/users/authenticate';
+       //const url = 'http://127.0.0.1:8086/api/users/authenticate';
+        // Async fetch API call to the database to create a new user
+        fetch(url, requestOptions)
+            .then(response => {
+                // Handle server response
+                if (response.status !== 200) {
+                    const errorMsg = 'Database response error: ' + response.status;
+                    console.log(errorMsg);
+                    return;
+                }
+                console.log(response)
+                // Response contains valid result
+                response.json().then(data => {
+                    if (data !== null) {
+                        console.log(data)
+                        document.cookie = `id=${data}; expires=Thu, 20 Jan 2025 00:00:00 UTC; path=/;`;
+                        //window.location.href = '{{site.baseurl}}/authentication';
+                    }
+                });
+            })
+            .catch(error => {
+                // Handle fetch errors
+                console.error('Fetch error:', error);
+            });
+    }
+    
+</script>
+
+
 
 <style>
     /* Style for the container div */
