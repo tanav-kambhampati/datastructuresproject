@@ -8,7 +8,7 @@ title: Salary
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jobly Salaries</title>
+    <title>Indeed Salaries</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,38 +55,59 @@ title: Salary
         .salary-card p {
             margin: 5px 0;
         }
+        .search {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Jobly Salaries</h1>
+        <h1>Indeed Salaries</h1>
     </header>
     <div class="container">
-        <button class="button" onclick="loadFakeData()">Load Sample Data</button>
+        <div class="search">
+            <input type="text" id="searchInput" placeholder="Search by job title...">
+            <button class="button" onclick="filterJobs()">Search</button>
+        </div>
+        <button class="button" onclick="loadFakeData()">Load Data</button>
         <button class="button" onclick="clearData()">Clear Data</button>    
         <div id="salaryContainer"></div>
     </div>
     <script>
-        function loadFakeData() {
+        let jobData = [
+            { title: 'Software Engineer', salary: '$100,000', location: 'San Francisco, CA', experience: '3-5 years' },
+            { title: 'Data Scientist', salary: '$110,000', location: 'New York, NY', experience: '2-4 years' },
+            { title: 'UX Designer', salary: '$90,000', location: 'Seattle, WA', experience: '4-6 years' },
+            { title: 'Project Manager', salary: '$95,000', location: 'Chicago, IL', experience: '5-7 years' },
+            { title: 'Marketing Specialist', salary: '$85,000', location: 'Los Angeles, CA', experience: '2-3 years' },
+            { title: 'Web Developer', salary: '$95,000', location: 'Austin, TX', experience: '3-5 years' },
+            { title: 'Product Manager', salary: '$120,000', location: 'Boston, MA', experience: '5-8 years' },
+            { title: 'Financial Analyst', salary: '$85,000', location: 'San Francisco, CA', experience: '2-4 years' },
+            { title: 'Network Engineer', salary: '$90,000', location: 'Seattle, WA', experience: '4-7 years' },
+            { title: 'HR Manager', salary: '$100,000', location: 'New York, NY', experience: '5-8 years' },
+            { title: 'Sales Representative', salary: '$80,000', location: 'Chicago, IL', experience: '2-5 years' },
+            { title: 'Customer Support Specialist', salary: '$75,000', location: 'Los Angeles, CA', experience: '1-3 years' },
+            { title: 'Graphic Designer', salary: '$70,000', location: 'Austin, TX', experience: '2-4 years' },
+            { title: 'Business Analyst', salary: '$95,000', location: 'Boston, MA', experience: '3-6 years' },
+            { title: 'Software Developer', salary: '$105,000', location: 'San Francisco, CA', experience: '4-7 years' },
+            { title: 'System Administrator', salary: '$85,000', location: 'Seattle, WA', experience: '3-5 years' },
+            { title: 'Operations Manager', salary: '$110,000', location: 'New York, NY', experience: '5-8 years' },
+            { title: 'Content Writer', salary: '$65,000', location: 'Chicago, IL', experience: '1-3 years' },
+            { title: 'Quality Assurance Engineer', salary: '$90,000', location: 'Los Angeles, CA', experience: '3-6 years' },
+            { title: 'Technical Support Specialist', salary: '$80,000', location: 'Austin, TX', experience: '2-4 years' }
+        ];
+        function loadData() {
             const salaryContainer = document.getElementById('salaryContainer');
             // Clear existing data
             salaryContainer.innerHTML = '';
-            // Fake salary data
-            const fakeSalaries = [
-                { title: 'Software Engineer', salary: '$100,000' },
-                { title: 'Data Scientist', salary: '$110,000' },
-                { title: 'UX Designer', salary: '$90,000' },
-                { title: 'Project Manager', salary: '$95,000' },
-                { title: 'Marketing Specialist', salary: '$85,000' }
-            ];
             // Display fake salaries
-            fakeSalaries.forEach(salary => {
+            jobData.forEach(job => {
                 const card = document.createElement('div');
                 card.classList.add('salary-card');
                 const title = document.createElement('h2');
-                title.textContent = salary.title;
+                title.textContent = job.title;
                 const amount = document.createElement('p');
-                amount.textContent = 'Average Salary: ' + salary.salary;
+                amount.textContent = `Average Salary: ${job.salary} | Location: ${job.location} | Experience: ${job.experience}`;
                 card.appendChild(title);
                 card.appendChild(amount);
                 salaryContainer.appendChild(card);
@@ -94,6 +115,28 @@ title: Salary
         }
         function clearData() {
             document.getElementById('salaryContainer').innerHTML = '';
+        }
+        function filterJobs() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredJobs = jobData.filter(job => job.title.toLowerCase().includes(searchTerm));
+            displayFilteredJobs(filteredJobs);
+        }
+        function displayFilteredJobs(jobs) {
+            const salaryContainer = document.getElementById('salaryContainer');
+            // Clear existing data
+            salaryContainer.innerHTML = '';
+            // Display filtered jobs
+            jobs.forEach(job => {
+                const card = document.createElement('div');
+                card.classList.add('salary-card');
+                const title = document.createElement('h2');
+                title.textContent = job.title;
+                const amount = document.createElement('p');
+                amount.textContent = `Average Salary: ${job.salary} | Location: ${job.location} | Experience: ${job.experience}`;
+                card.appendChild(title);
+                card.appendChild(amount);
+                salaryContainer.appendChild(card);
+            });
         }
     </script>
 </body>
