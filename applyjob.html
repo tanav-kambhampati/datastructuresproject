@@ -1,0 +1,150 @@
+---
+layout: base
+permalink: /applyjob/
+title: Apply Job
+---
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            /* CSS styles */
+            .centertext {
+                text-align: center;
+            }
+    
+            table {
+                margin: 0 auto; /* Center the table */
+            }
+    
+            th, td {
+                padding: 10px;
+                text-align: left;
+            }
+    
+            .textarea {
+                width: 100%; /* Set the width to 100% of the parent container */
+                resize: vertical; /* Allow vertical resizing */
+            }
+    
+            /* Additional styling if needed */
+        </style>
+    </head>
+    <body>
+        <h2 class="centertext">Apply For This Job!</h2>
+        <h3 class="centertext">Hey! Enter more information about yourself to let the job postee know of your application.</h3>
+       
+            <table>
+                <tr>
+                    <td><label for="address">Address</label></td>
+                    <td><input type="text" id="address" name="address" required></td>
+                </tr>
+                <tr>
+                    <td><label for="description">Job Description:</label></td>
+                    <td><textarea id="description" name="description" rows="4" required></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="qualification">Job Qualifications:</label></td>
+                    <td><textarea id="qualification" name="qualification" rows="4" required></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="pay">Salary(By Hour):</label></td>
+                    <td><textarea id="pay" name="pay" required></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="field">Field:</label></td>
+                    <td>
+                        <select id="field" name="field">
+                            <option value="null"></option>
+                            <option value="IT">IT</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Marketing">Marketing</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="location">Location:</label></td>
+                    <td>
+                        <select id="location" name="location">
+                            <option value="null"></option>
+                            <option value="Onsite">Onsite</option>
+                            <option value="Remote">Remote</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </td>
+                <tr>
+                    <td>
+                    <label for="resume">Resume</label>
+                    </td>
+                    <td>
+                        <input type="file" id="resume" name="resume" accept="image/png, image/jpeg" />
+                    </td>
+                </tr>    
+
+                </tr>
+                <tr>
+                    <td colspan="2" class="centertext">
+                        <button onclick="postJob()">Post Job</button>
+                    </td>
+                </tr>
+            </table>
+            </body>
+<script>
+    let urlParams = new URLSearchParams(window.location.search);
+    let jobdetails = urlParams.get('id');   
+
+  function create_User() {
+      // Extract data from inputs
+      const name = document.getElementById("name").value;
+      const password = document.getElementById("password").value;
+      const dob = document.getElementById("dob").value;
+  
+      // Prepare data for POST request
+      const userData = {
+          name: name,
+          password: password,
+          dob: dob,
+          status: "Freelancer"
+      };
+  
+      // Prepare request options
+      const requestOptions = {
+          method: 'POST',
+          headers: new Headers({'content-type': 'application/json'}),
+          body: JSON.stringify(userData), // Convert data object to JSON string
+          mode: 'cors',
+      };
+  
+      // URL for Create API
+      // const url = 'http://127.0.0.1:8086/api/jwt_auth/register';
+     const url = 'http://127.0.0.1:8086/api/users/';
+      // Async fetch API call to the database to create a new user
+      fetch(url, requestOptions)
+          .then(response => {
+              // Handle server response
+              if (response.status !== 200) {
+                  const errorMsg = 'Database response error: ' + response.status;
+                  console.log(errorMsg);
+                  return;
+              }
+  
+              // Response contains valid result
+              response.json().then(data => {
+                  if (data !== null) {
+                      console.log(data)
+                      document.cookie = "auth="+data;
+                      window.location.href = '{{site.baseurl}}/userId?userId=' + data;
+                  }
+              });
+          })
+          .catch(error => {
+              // Handle fetch errors
+              console.error('Fetch error:', error);
+          });
+  }
+  
+</script>
+</html>

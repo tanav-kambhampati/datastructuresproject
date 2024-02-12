@@ -78,8 +78,8 @@ title: Jobs Details
             location.innerHTML = data.location;
             qualification.innerHTML = data.qualification;
             pay.innerHTML = data.pay;
-            view.innerHTML = "View Job";
-            link.setAttribute("href", '{{site.baseurl}}/jobdetails?id=' + data.id)
+            view.innerHTML = "Apply For This Job";
+            link.setAttribute("href", '{{site.baseurl}}/applyjob?id=' + data.id)
             link.appendChild(view)
 
             tr.appendChild(jobid);
