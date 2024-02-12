@@ -1,6 +1,6 @@
 ---
 layout: base
-permalink: /freelancerRegistration/
+permalink: /employerRegistration/
 ---
 
 <html>
@@ -42,10 +42,10 @@ button:hover, a:hover {
 </head>
 <body>
 
-<h2 style="text-align:center">Freelancer Registration Card</h2>
-<h3 style="text-align:center">To get your freelancer profile created, fill out your name and password. You will be given a user id that you can log in with.</h3>
+<h2 style="text-align:center">Employer Registration Card</h2>
+<h3 style="text-align:center">To get your employer profile created, fill out your company name and password. You will be given a user id that you can log in with.</h3>
 <div class="card">
-  <img src="../images/user.png" alt="User" style="width:100%">
+  <img src="../images/company.png" alt="User" style="width:100%">
   <p class="registrationInputs"><input placeholder="Name" type="text" name="name" id="name" required></p>
 
 <p class="registrationInputs"><input placeholder="Password" type="password" name="password" id="password" required></p>
@@ -64,7 +64,7 @@ button:hover, a:hover {
       const userData = {
           name: name,
           password: password,
-          status: "Freelancer"
+          status: "Employer"
       };
   
       // Prepare request options
