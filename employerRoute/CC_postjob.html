@@ -34,7 +34,7 @@ title: Post a Job
 <body>
     <h2 class="centertext">Add Job</h2>
     <h3 class="centertext">Hey Employer! Start receiving job applicants by completing this form!</h3>
-    <form class="centertext" id="jobForm">
+   
         <table>
             <tr>
                 <td><label for="title">Job Title:</label></td>
@@ -82,7 +82,7 @@ title: Post a Job
                 </td>
             </tr>
         </table>
-    </form>
+
 
     <script>
         // JavaScript code
@@ -121,27 +121,26 @@ title: Post a Job
             const url = 'http://127.0.0.1:8086/api/job/';
             
             fetch(url, requestOptions)
-                .then(response => {
-                
-                    if (response.status !== 200) {
-                        const errorMsg = 'Database response error: ' + response.status;
-                        console.log(errorMsg);
-                        return;
-                    }
-        
-                  
-                    response.json().then(data => {
-                        if (data !== null) {
-                            console.log(data)
-                            document.cookie = "auth="+data;
-                            window.location.href = '{{site.baseurl}}/jobpostings';
-                        }
-                    });
-                })
-                .catch(error => {
-                 
-                    console.error('Fetch error:', error);
-                });
+          .then(response => {
+              // Handle server response
+              if (response.status !== 200) {
+                  const errorMsg = 'Database response error: ' + response.status;
+                  console.log(errorMsg);
+                  return;
+              }
+  
+              // Response contains valid result
+              response.json().then(data => {
+                  if (data !== null) {
+                      console.log(data)
+                      window.location.href = '{{site.baseurl}}/jobs';
+                  }
+              });
+          })
+          .catch(error => {
+              // Handle fetch errors
+              console.error('Fetch error:', error);
+          });
         }
     </script>
 </body>

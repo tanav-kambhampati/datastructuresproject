@@ -62,14 +62,60 @@ button:hover, a:hover {
       <!-- Add more options as needed -->
   </select>
   <p>Harvard University</p>
-  <div style="margin: 24px 0;">
-    <a href="#"><i class="fa fa-dribbble"></i></a> 
-    <a href="#"><i class="fa fa-twitter"></i></a>  
-    <a href="#"><i class="fa fa-linkedin"></i></a>  
-    <a href="#"><i class="fa fa-facebook"></i></a> 
-  </div>
-  <p><button>Contact</button></p>
+
 </div>
 
 </body>
+<script>
+  function create_User() {
+      // Extract data from inputs
+      const name = document.getElementById("name").value;
+      const password = document.getElementById("password").value;
+      const dob = document.getElementById("dob").value;
+  
+      // Prepare data for POST request
+      const userData = {
+          name: name,
+          password: password,
+          dob: dob,
+          status: "Freelancer"
+      };
+  
+      // Prepare request options
+      const requestOptions = {
+          method: 'POST',
+          headers: new Headers({'content-type': 'application/json'}),
+          body: JSON.stringify(userData), // Convert data object to JSON string
+          mode: 'cors',
+      };
+  
+      // URL for Create API
+      // const url = 'http://127.0.0.1:8086/api/jwt_auth/register';
+     const url = 'http://127.0.0.1:8086/api/users/';
+      // Async fetch API call to the database to create a new user
+      fetch(url, requestOptions)
+          .then(response => {
+              // Handle server response
+              if (response.status !== 200) {
+                  const errorMsg = 'Database response error: ' + response.status;
+                  console.log(errorMsg);
+                  return;
+              }
+  
+              // Response contains valid result
+              response.json().then(data => {
+                  if (data !== null) {
+                      console.log(data)
+                      document.cookie = "auth="+data;
+                      window.location.href = '{{site.baseurl}}/userId?userId=' + data;
+                  }
+              });
+          })
+          .catch(error => {
+              // Handle fetch errors
+              console.error('Fetch error:', error);
+          });
+  }
+  
+</script>
 </html>

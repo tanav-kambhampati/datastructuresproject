@@ -1,0 +1,108 @@
+---
+layout: base
+permalink: /jobs/
+title: Jobs
+---
+
+
+<table>
+    <thead>
+      <tr>
+        <th>Job ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Field</th>
+        <th>Location</th>
+        <th>Qualification</th>
+        <th>Pay</th>
+        <th>View</th>
+      </tr>
+    </thead>
+    <tbody id="results">
+     
+    </tbody>
+  </table>
+  
+  
+  <!-- Script is layed out in a sequence (no function) and will execute when page is loaded -->
+  <script>
+    // prepare HTML result container for new output
+    const resultContainer = document.getElementById("results");
+  
+    // prepare fetch options
+    const url = "http://127.0.0.1:8086/api/job/";
+    const headers = {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'include', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    };
+    // fetch the API
+    fetch(url, headers)
+      .then(response => {
+        console.log(response)
+        if (response.status !== 200) {
+          const errorMsg = 'Database response error: ' + response.status;
+          console.log(errorMsg);
+          window.location.href = '{{site.baseurl}}/403';
+          const tr = document.createElement("tr");
+          const td = document.createElement("td");
+          td.innerHTML = errorMsg;
+          tr.appendChild(td);
+          resultContainer.appendChild(tr);
+          return;
+        }
+        response.json().then(data => {
+          console.log(data)
+          for (const row of data) {
+            const tr = document.createElement("tr");
+            const jobid = document.createElement("td");
+            const title = document.createElement("td");
+            const description = document.createElement("td");
+            const field = document.createElement("td");
+            const location = document.createElement("td");
+            const qualification = document.createElement("td");
+            const pay = document.createElement("td");
+            const view = document.createElement("td");
+            const link = document.createElement("a");
+    
+
+            jobid.innerHTML = row.id;
+            title.innerHTML = row.title;
+            description.innerHTML = row.description;
+            field.innerHTML = row.field;
+            location.innerHTML = row.location;
+            qualification.innerHTML = row.qualification;
+            pay.innerHTML = row.pay;
+            view.innerHTML = "View Job";
+            link.setAttribute("href", '{{site.baseurl}}/jobdetails?id=' + row.id)
+            link.appendChild(view)
+
+            tr.appendChild(jobid);
+            tr.appendChild(title);
+            tr.appendChild(description);
+            tr.appendChild(field);
+            tr.appendChild(location);
+            tr.appendChild(qualification);
+            tr.appendChild(pay);
+            tr.appendChild(link);
+            
+  
+            resultContainer.appendChild(tr);
+          }
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.innerHTML = err;
+        tr.appendChild(td);
+        resultContainer.appendChild(tr);
+      });
+    // ...
+    </script>
