@@ -1,7 +1,87 @@
 ---
 layout: base
 ---
+    
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobly</title>
+</head>
 <body>
+    <h1>At Jobly we provide people with a platform where employers and freelancers can come together and be greatly assisted in the hiring process. Join today!</h1>
+</body>
+
+
+<script type="text/javascript" src="{{ '/assets/js/search.js' | relative_url }}"></script>
+<script type="text/javascript" src="{{ '/assets/js/vendor/lunr.min.js' | relative_url }}"></script>
+
+<div class="search">
+    <div class="search-input-wrap">
+    <input type="text" class="js-search-input search-input input-block form-control" tabindex="0" placeholder="Search {{ site.title }} for KeywordsJob TitlesCompany" aria-label="Search {{ site.title }}" autocomplete="off">
+    </div>
+    <br>
+    <div class="js-search-results search-results-wrap"></div>
+</div>
+
+
+
+<script>
+    function create_User() {
+        // Extract data from inputs
+        const uid = document.getElementById("uid").value;
+        const password = document.getElementById("password").value;
+    
+        // Prepare data for POST request
+        const userData = {
+            uid: uid,
+            password: password
+        };
+    
+        // Prepare request options
+        const requestOptions = {
+            method: 'POST',
+            headers: new Headers({'content-type': 'application/json'}),
+            body: JSON.stringify(userData), // Convert data object to JSON string
+            mode: 'cors',
+            credentials: 'include'
+        };
+    
+        // URL for Create API
+        const url = 'http://127.0.0.1:8086/api/users/authenticate';
+       //const url = 'http://127.0.0.1:8086/api/users/authenticate';
+        // Async fetch API call to the database to create a new user
+        fetch(url, requestOptions)
+            .then(response => {
+                // Handle server response
+                if (response.status !== 200) {
+                    const errorMsg = 'Database response error: ' + response.status;
+                    console.log(errorMsg);
+                    return;
+                }
+                console.log(response)
+                // Response contains valid result
+                response.json().then(data => {
+                    if (data !== null) {
+                        console.log(data)
+                        document.cookie = `id=${data}; expires=Thu, 20 Jan 2025 00:00:00 UTC; path=/;`;
+                        //window.location.href = '{{site.baseurl}}/authentication';
+                    }
+                });
+            })
+            .catch(error => {
+                // Handle fetch errors
+                console.error('Fetch error:', error);
+            });
+    }
+    
+</script>
+
+
+
+
+<div class="container" style="background-color: rgb(15, 7, 86); padding: 20px; border-radius: 5px;">
     <table>
         <tr>
             <th colspan="2"><h2>Login</h2></th>
@@ -51,15 +131,93 @@ layout: base
                     // Response contains valid result
                     response.json().then(data => {
                         console.log(data)
-                        if (data !== null) {
-                            document.cookie = `userid=${data}; expires=Thu, 20 Jan 2025 00:00:00 UTC; path=/;`;
-                        }
-                    });
-                })
-                .catch(error => {
-                    // Handle fetch errors
-                    console.error('Fetch error:', error);
+                        document.cookie = `id=${data}; expires=Thu, 20 Jan 2025 00:00:00 UTC; path=/;`;
+                        //window.location.href = '{{site.baseurl}}/authentication';
+                    }
                 });
-        }
-    </script>
+            })
+            .catch(error => {
+                // Handle fetch errors
+                console.error('Fetch error:', error);
+            });
+    }
+    
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Logo</title>
+</head>
+<body>
+    <img src="images/freelancer.jpg" alt="Company Logo" width="700" height="350">
+</body>
+
+
+
+<style>
+    /* Style for the container div */
+    .usertype-container {
+        text-align: center;
+        margin: 20px auto; /* Center align and provide top margin */
+        background-color: #b8b8b16c;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 800px; /* Set maximum width */
+    }
+
+    /* Style for the title */
+    .usertype-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: black;
+    }
+
+
+    .usertype-question {
+        color: black;
+    }
+
+    /* Style for the buttons */
+    .usertype-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .usertype-button {
+        padding: 10px 20px;
+        font-size: 22px;
+        margin: 0 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #ececec;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .usertype-button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Style for the 'Or' text */
+    .usertype-or {
+        font-size: 20px;
+        margin: 0 10px;
+        color: #000000;
+    }
+
+</style>
+
+<body>
+    <div class="usertype-container">
+        <h1 class="usertype-title">New to Jobly? Register</h1>
+        <p class="usertype-question">Are you:</p>
+        <div class="usertype-buttons">
+            <button class="usertype-button"><a href="{{site.baseurl}}/freelancer">Searching for a job</a></button>
+            <p class="usertype-or">Or</p>
+            <button class="usertype-button"><a href="{{site.baseurl}}/postjob">Employing people</a></button>
+        </div>
+    </div>
 </body>
