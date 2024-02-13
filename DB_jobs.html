@@ -3,42 +3,35 @@ layout: base
 permalink: /jobs/
 title: Jobs
 ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Details</title>
 <style>
-    /* Style for rounded corners */
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        border-radius: 15px;
-        overflow: hidden;
-    }
+/* Style for rounded corners */
+select, input[type="text"] {
+    padding: 10px;
+    width: 200px;
+    border-radius: 20px; /* Adjust border-radius to round the corners */
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 10px;
+    height: 40px;
+}
 
-    th, td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    tbody tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    tbody tr:hover {
-        background-color: #ddd;
-    }
-
-    .center {
-        text-align: center;
-    }
+/* Style for centering */
+.center {
+    text-align: center;
+}
 </style>
-
+</head>
+<body>
 <div class="center">
     <!-- Add a search bar -->
     <input type="text" id="searchInput" placeholder="Search for job titles">
-
+    <p></p>
     <!-- Add dropdowns for filtering -->
     <label for="fieldSelect">Filter by Field:</label>
     <select id="fieldSelect">
@@ -54,6 +47,13 @@ title: Jobs
         <option value="On-site">On-site</option>
         <option value="Remote">Remote</option>
         <!-- Add more options as needed -->
+    </select>
+
+    <label for="qualificationSelect">Filter by Qualification:</label>
+    <select id="qualificationSelect">
+        <option value="">All Qualifications</option>
+        <option value="Bachelor's Degree">Bachelor's Degree</option>
+        <option value="Master's Degree">Master's Degree</option>
     </select>
 </div>
 
@@ -81,21 +81,25 @@ title: Jobs
     const resultContainer = document.getElementById("results");
     const fieldSelect = document.getElementById("fieldSelect");
     const locationSelect = document.getElementById("locationSelect");
+    const qualificationSelect = document.getElementById("qualificationSelect")
 
-    // Function to filter jobs based on search query, field, and location
+    // Function to filter jobs based on search query, field, location, and qualification
     function filterJobs() {
         const searchQuery = document.getElementById("searchInput").value.toLowerCase();
         const selectedField = fieldSelect.value.toLowerCase();
         const selectedLocation = locationSelect.value.toLowerCase();
+        const selectedQualification = qualificationSelect.value.toLowerCase();
         
         const rows = resultContainer.querySelectorAll("tr");
         rows.forEach(row => {
             const title = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
             const field = row.querySelector("td:nth-child(4)").textContent.toLowerCase();
             const location = row.querySelector("td:nth-child(5)").textContent.toLowerCase();
+            const qualification = row.querySelector("td:nth-child(6)").textContent.toLowerCase();
             if ((title.includes(searchQuery) || searchQuery === "") &&
                 (selectedField === "" || field === selectedField) &&
-                (selectedLocation === "" || location === selectedLocation)) {
+                (selectedLocation === "" || location === selectedLocation) &&
+                (selectedQualification === "" || qualification === selectedQualification)) {
                 row.style.display = "";
             } else {
                 row.style.display = "none";
@@ -106,6 +110,7 @@ title: Jobs
     // Add event listeners to dropdowns and search input
     fieldSelect.addEventListener("change", filterJobs);
     locationSelect.addEventListener("change", filterJobs);
+    qualificationSelect.addEventListener("change", filterJobs);
     document.getElementById("searchInput").addEventListener("input", filterJobs);
 
     // Fetch data and populate the table as before
@@ -128,8 +133,6 @@ title: Jobs
             response.json().then(data => {
                 data.forEach(row => {
                     const tr = document.createElement("tr");
-                    // Create and append table cells as before
-                    // ...
                     tr.innerHTML = `
                         <td>${row.id}</td>
                         <td>${row.title}</td>
@@ -150,3 +153,5 @@ title: Jobs
             console.error(err);
         });
 </script>
+</body>
+</html>
