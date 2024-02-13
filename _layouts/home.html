@@ -3,6 +3,39 @@ layout: base
 ---
     
 
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobly</title>
+</head>
+<body>
+    <h1>At Jobly we provide people with a platform where employers and freelancers can come together and be greatly assisted in the hiring process. Join today!</h1>
+</body>
+
+
+<script type="text/javascript" src="{{ '/assets/js/search.js' | relative_url }}"></script>
+<script type="text/javascript" src="{{ '/assets/js/vendor/lunr.min.js' | relative_url }}"></script>
+
+<div class="search">
+    <div class="search-input-wrap">
+    <input type="text" class="js-search-input search-input input-block form-control" tabindex="0" placeholder="Search {{ site.title }} for KeywordsJob TitlesCompany" aria-label="Search {{ site.title }}" autocomplete="off">
+    </div>
+    <br>
+    <div class="js-search-results search-results-wrap"></div>
+</div>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Logo</title>
+</head>
+<body>
+    <img src="company.png" alt="Company Logo">
+</body>
+
+
 <script>
     function create_User() {
         // Extract data from inputs
@@ -54,7 +87,7 @@ layout: base
     
 </script>
 
-<html lang="en">
+
 
 
 <div class="container" style="background-color: rgb(15, 7, 86); padding: 20px; border-radius: 5px;">
@@ -189,7 +222,7 @@ layout: base
         <div class="usertype-buttons">
             <button class="usertype-button"><a href="{{site.baseurl}}/freelancer">Searching for a job</a></button>
             <p class="usertype-or">Or</p>
-            <button class="usertype-button"><a href="{{site.baseurl}}/employer">Employing people</a></button>
+            <button class="usertype-button"><a href="{{site.baseurl}}/postjob">Employing people</a></button>
         </div>
     </div>
 </body>
