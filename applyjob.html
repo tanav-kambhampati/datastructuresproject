@@ -86,27 +86,40 @@ permalink: /applyjob/
                 </tr>
                 <tr>
                     <td colspan="2" class="centertext">
-                        <button onclick="postJob()">Post Job</button>
+                        <button onclick="applyJob()">Apply For This Job</button>
                     </td>
                 </tr>
             </table>
             </body>
 <script>
     let urlParams = new URLSearchParams(window.location.search);
-    let jobdetails = urlParams.get('id');   
+    let jobid = urlParams.get('id');   
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
 
-  function create_User() {
+  function applyJob() {
       // Extract data from inputs
-      const name = document.getElementById("name").value;
-      const password = document.getElementById("password").value;
-      const dob = document.getElementById("dob").value;
-  
+      //const name = document.getElementById("name").value;
+      //const password = document.getElementById("password").value;
+      //const dob = document.getElementById("dob").value;
+      userid = getCookie("userid");
       // Prepare data for POST request
       const userData = {
-          name: name,
-          password: password,
-          dob: dob,
-          status: "Freelancer"
+          jobid: jobid,
+          userid: userid
       };
   
       // Prepare request options
@@ -119,7 +132,7 @@ permalink: /applyjob/
   
       // URL for Create API
       // const url = 'http://127.0.0.1:8086/api/jwt_auth/register';
-     const url = 'http://127.0.0.1:8086/api/users/';
+     const url = 'http://127.0.0.1:8086/api/jobuser/';
       // Async fetch API call to the database to create a new user
       fetch(url, requestOptions)
           .then(response => {

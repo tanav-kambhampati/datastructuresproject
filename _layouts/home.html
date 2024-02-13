@@ -23,17 +23,11 @@ layout: base
     </div>
     <br>
     <div class="js-search-results search-results-wrap"></div>
+    <img src="../images/company.png" alt="Company Logo">
 </div>
 
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Logo</title>
-</head>
-<body>
-    <img src="company.png" alt="Company Logo">
-</body>
+
 
 
 <script>
@@ -90,73 +84,7 @@ layout: base
 
 
 
-<div class="container" style="background-color: rgb(15, 7, 86); padding: 20px; border-radius: 5px;">
-    <table>
-        <tr>
-            <td colspan="2"><label for="login" style="font-size: 24px;">Login to Jobly!</label></td>
-        </tr>
-        <tr>
-            <th><label for="uid">User ID</label></th>
-            <th><label for="password">Password</label></th>
-        </tr>
-        <tr>
-            <td><input type="text" name="uid" id="uid" required></td>
-            <td><input type="password" name="password" id="password" required></td>
-            <td><button onclick="create_User()">Create</button></td>
-        </tr>
-    </table>
-</div>
 
-<script>
-    function create_User() {
-        // Extract data from inputs
-        const uid = document.getElementById("uid").value;
-        const password = document.getElementById("password").value;
-    
-        // Prepare data for POST request
-        const userData = {
-            uid: uid,
-            password: password
-        };
-    
-        // Prepare request options
-        const requestOptions = {
-            method: 'POST',
-            headers: new Headers({'content-type': 'application/json'}),
-            body: JSON.stringify(userData), // Convert data object to JSON string
-            mode: 'cors',
-            credentials: 'include'
-        };
-    
-        // URL for Create API
-        const url = 'http://127.0.0.1:8086/api/users/authenticate';
-       //const url = 'http://127.0.0.1:8086/api/users/authenticate';
-        // Async fetch API call to the database to create a new user
-        fetch(url, requestOptions)
-            .then(response => {
-                // Handle server response
-                if (response.status !== 200) {
-                    const errorMsg = 'Database response error: ' + response.status;
-                    console.log(errorMsg);
-                    return;
-                }
-                console.log(response)
-                // Response contains valid result
-                response.json().then(data => {
-                    if (data !== null) {
-                        console.log(data)
-                        document.cookie = `id=${data}; expires=Thu, 20 Jan 2025 00:00:00 UTC; path=/;`;
-                        //window.location.href = '{{site.baseurl}}/authentication';
-                    }
-                });
-            })
-            .catch(error => {
-                // Handle fetch errors
-                console.error('Fetch error:', error);
-            });
-    }
-    
-</script>
 
 
 
@@ -215,17 +143,74 @@ layout: base
 
 </style>
 
-<body>
-    <div class="usertype-container">
-        <h1 class="usertype-title">New to Jobly? Register</h1>
-        <p class="usertype-question">Are you:</p>
-        <div class="usertype-buttons">
-            <button class="usertype-button"><a href="{{site.baseurl}}/freelancer">Searching for a job</a></button>
-            <p class="usertype-or">Or</p>
-            <button class="usertype-button"><a href="{{site.baseurl}}/postjob">Employing people</a></button>
-        </div>
-    </div>
-</body>
+<table>
+    <tr>
+        <th><label for="uid">User ID</label></th>
+        <th><label for="password">Password</label></th>
+    </tr>
+    <tr>
+        <td><input type="text" name="uid" id="uid" required></td>
+        <td><input type="password" name="password" id="password" required></td>
+        <td ><button onclick="login_User()">Login</button></td>
+    </tr>
+</table>
+<a href="{{site.baseurl}}/usertype/">Don't have an account? Sign up here!</a>
+
+<script>
+    function login_User() {
+        // Extract data from inputs
+        const uid = document.getElementById("uid").value;
+        const password = document.getElementById("password").value;
+    
+        // Prepare data for POST request
+        const userData = {
+            uid: uid,
+            password: password
+        };
+    
+        // Prepare request options
+        const requestOptions = {
+            method: 'POST',
+            headers: new Headers({'content-type': 'application/json'}),
+            body: JSON.stringify(userData), // Convert data object to JSON string
+            mode: 'cors',
+            credentials: 'include'
+        };
+    
+        // URL for Create API
+        const url = 'http://127.0.0.1:8086/api/users/authenticate';
+       //const url = 'http://127.0.0.1:8086/api/users/authenticate';
+        // Async fetch API call to the database to create a new user
+        fetch(url, requestOptions)
+            .then(response => {
+                // Handle server response
+                if (response.status !== 200) {
+                    const errorMsg = 'Database response error: ' + response.status;
+                    console.log(errorMsg);
+                    return;
+                }
+                console.log(response)
+                // Response contains valid result
+                response.json().then(data => {
+                    console.log(data)
+                    if (data !== null) {
+                   
+                        document.cookie = `userid=${data}; expires=Thu, 20 Jan 2025 00:00:00 UTC; path=/;`;
+                       
+                    }
+                });
+            })
+            .catch(error => {
+                // Handle fetch errors
+                console.error('Fetch error:', error);
+            });
+    }
+
+    
+    
+</script>
+
+    
 
 
 
