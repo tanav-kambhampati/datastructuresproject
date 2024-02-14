@@ -196,7 +196,7 @@ layout: base
                     if (data !== null) {
                    
                         document.cookie = `userid=${data}; expires=Thu, 20 Jan 2025 00:00:00 UTC; path=/;`;
-                       
+                        window.location.href = '{{site.baseurl}}/jobs/'
                     }
                 });
             })
