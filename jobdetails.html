@@ -20,7 +20,7 @@ permalink: /jobdetails/
 .card-title {
     font-size: 1.25rem;
     margin-bottom: 10px;
-    display: flex;
+  
     align-items: center;
 }
 
@@ -76,9 +76,15 @@ permalink: /jobdetails/
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
     outline: none;
 }
+.dynamiccount {
+    float: right;
+    text-align: right;
+}
+
 </style>
 </head>
 <body>
+   
 <div id="results" class="card-container"></div>
 
 <script>
@@ -116,6 +122,7 @@ permalink: /jobdetails/
         response.json().then(data => {
           // Render job details
           renderJobDetails(data);
+          apply_Count()
         });
       })
       .catch(err => {
@@ -135,12 +142,19 @@ permalink: /jobdetails/
         // Populate card with job details
         card.innerHTML = `
             <div class="card-body">
+                
                 <h5 class="card-title">
                     <span class="back-arrow" onclick="goBack()">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 11H7.41l5.3-5.29a1 1 0 1 0-1.42-1.42l-7 7a1 1 0 0 0 0 1.42l7 7a1 1 0 0 0 1.42-1.42L7.41 13H20a1 1 0 0 0 0-2z"/></svg>
                     </span>
                     ${data.title}
+                    <div class="dynamiccount">
+                    <p id="applycount"></p>
+                    </div>
                 </h5>
+          
+                
+            </div>
                 <p class="card-text"><strong>Description:</strong> ${data.description}</p>
                 <p class="card-text"><strong>Field:</strong> ${data.field}</p>
                 <p class="card-text"><strong>Location:</strong> ${data.location}</p>
@@ -158,5 +172,43 @@ permalink: /jobdetails/
         window.history.back();
     }
 </script>
+<script>
+    function apply_Count() {
+    const counturl = "http://127.0.0.1:8086/api/jobuser/applycount?id=" + jobdetails;
+    const countheaders = {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'include', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    };
+    // fetch the API
+    fetch(counturl, countheaders)
+      .then(response => {
+        // Error handling
+        if (response.status !== 200) {
+          const errorMsg = 'Database response error: ' + response.status;
+          console.log(errorMsg);
+        
+          
+        }
+        response.json().then(data => {
+            console.log('apply count')
+            console.log(data)
+        document.getElementById('applycount').innerHTML = `${data} users have applied to this job.`
+          });
+        
+      })
+      .catch(err => {
+        // Error handling
+        console.error(err);
+        
+      });
+    }
+</script>
 </body>
 </html>
+
