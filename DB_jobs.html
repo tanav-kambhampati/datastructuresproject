@@ -11,37 +11,59 @@ title: Jobs
 <title>Job Details</title>
 <style>
 /* Style for rounded corners */
-select, input[type="text"] {
+/* Style for rounded corners */
+.searchbar {
     padding: 10px;
-    width: 200px;
+    width: 400px;
     border-radius: 20px; /* Adjust border-radius to round the corners */
     border: 1px solid #ccc;
     font-size: 16px;
     margin-bottom: 10px;
     height: 40px;
 }
-
 /* Style for centering */
 .center {
     text-align: center;
+}
+/* Style for rounded corners on the table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 5px; /* Adjust border-radius to round the corners */
+    overflow: hidden;
+    border: 1px solid #ccc;
+}
+table th,
+table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 </style>
 </head>
 <body>
 <div class="center">
     <!-- Add a search bar -->
-    <input type="text" id="searchInput" placeholder="Search for job titles">
+    <input class="searchbar"type="text" id="searchInput" placeholder="Search for job titles">
     <p></p>
     <!-- Add dropdowns for filtering -->
     <label for="fieldSelect">Filter by Field:</label>
     <select id="fieldSelect">
         <option value="">All Fields</option>
-        <option value="software">Software</option>
-        <option value="it">IT</option>
-        <option value="web">Web</option>
+        <option value="Technology">Technology</option>
+        <option value="Finance">Finance</option>
+        <option value="IT">IT</option>
+        <option value="Software">Software</option>
+        <option value="Web">Web</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Accounting">Accounting</option>
+
+        <option value="Finance">Finance</option>
+        <option value="Finance">Finance</option>
+
+
         <!-- Add more options as needed -->
     </select>
-
     <label for="locationSelect">Filter by Location:</label>
     <select id="locationSelect">
         <option value="">All Locations</option>
@@ -49,17 +71,16 @@ select, input[type="text"] {
         <option value="Remote">Remote</option>
         <!-- Add more options as needed -->
     </select>
-
     <label for="qualificationSelect">Filter by Qualification:</label>
     <select id="qualificationSelect">
         <option value="">All Qualifications</option>
-        <option value="bachelor">Bachelor's Degree</option>
-        <option value="masters">Master's Degree</option>
+        <option value="Bachelors">Bachelors</option>
+        <option value="Masters">Masters</option>
+        <option value="PhD">PhD</option>
+
     </select>
 </div>
-
 <br></br>
-
 <table>
     <thead>
         <tr>
@@ -69,17 +90,16 @@ select, input[type="text"] {
             <th>Field</th>
             <th>Location</th>
             <th>Qualification</th>
-            <th>Salary(By Hour)</th>
+            <th>Pay</th>
             <th>View</th>
         </tr>
     </thead>
     <tbody id="results">
-     
     </tbody>
 </table>
-
 <script>
-    const resultContainer = document.getElementById("results");
+   
+   const resultContainer = document.getElementById("results");
     const fieldSelect = document.getElementById("fieldSelect");
     const locationSelect = document.getElementById("locationSelect");
     const qualificationSelect = document.getElementById("qualificationSelect")
@@ -115,7 +135,7 @@ select, input[type="text"] {
     document.getElementById("searchInput").addEventListener("input", filterJobs);
 
     // Fetch data and populate the table as before
-    const url = "http://127.0.0.1:8086/api/job/";
+    const url = "http://127.0.0.1:8064/api/job/";
     const headers = {
         method: 'GET',
         mode: 'cors',
@@ -142,7 +162,7 @@ select, input[type="text"] {
                         <td>${row.location}</td>
                         <td>${row.qualification}</td>
                         <td>${row.pay}</td>
-                        <td><a href="{{site.baseurl}}/jobdetails?id=${row.id}">View Job</a></td>
+                        <td><a href="/joblyFrontend/jobdetails?id=${row.id}">View Job</a></td>
                     `;
                     resultContainer.appendChild(tr);
                 });
