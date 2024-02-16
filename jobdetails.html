@@ -95,7 +95,7 @@ permalink: /jobdetails/
     const resultContainer = document.getElementById("results");
   
     // prepare fetch options
-    const url = "http://127.0.0.1:8086/api/job/?id=" + jobdetails;
+    const url = "http://127.0.0.1:8064/api/job/?id=" + jobdetails;
     const headers = {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
@@ -174,7 +174,7 @@ permalink: /jobdetails/
 </script>
 <script>
     function apply_Count() {
-    const counturl = "http://127.0.0.1:8086/api/jobuser/applycount?id=" + jobdetails;
+    const counturl = "http://127.0.0.1:8064/api/jobuser/applycount?id=" + jobdetails;
     const countheaders = {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin

@@ -49,8 +49,8 @@ layout: base
         };
     
         // URL for Create API
-        const url = 'http://127.0.0.1:8086/api/users/authenticate';
-       //const url = 'http://127.0.0.1:8086/api/users/authenticate';
+        const url = 'http://127.0.0.1:8064/api/users/authenticate';
+       //const url = 'http://127.0.0.1:8064/api/users/authenticate';
         // Async fetch API call to the database to create a new user
         fetch(url, requestOptions)
             .then(response => {
@@ -118,7 +118,7 @@ layout: base
                 credentials: 'include'
             };
             // URL for Create API
-            const url = 'http://127.0.0.1:8086/api/users/authenticate';
+            const url = 'http://127.0.0.1:8064/api/users/authenticate';
             // Async fetch API call to the database to create a new user
             fetch(url, requestOptions)
                 .then(response => {
