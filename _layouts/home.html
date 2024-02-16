@@ -132,7 +132,7 @@ layout: base
                     response.json().then(data => {
                         console.log(data);
                         document.cookie = `id=${data}; expires=Thu, 20 Jan 2025 00:00:00 UTC; path=/;`;
-                        // window.location.href = '{{site.baseurl}}/authentication';
+                        window.location.href = '{{site.baseurl}}/jobs';
                     });
                 })
                 .catch(error => {
