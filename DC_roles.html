@@ -1,6 +1,7 @@
 ---
 layout: base
-permalink: /roles/
+permalink: /users/
+title: Users
 ---
 
 
@@ -9,9 +10,8 @@ permalink: /roles/
       <tr>
         <th>User ID</th>
         <th>Name</th>
-        <th>Role</th>
-        <th>Date of Birth</th>
-        <th>Age</th>
+        <th>Status</th>
+
       </tr>
     </thead>
     <tbody id="results">
@@ -58,21 +58,17 @@ permalink: /roles/
             const tr = document.createElement("tr");
             const uid = document.createElement("td");
             const name = document.createElement("td");
-            const role = document.createElement("td");
-            const dob = document.createElement("td");
-            const age = document.createElement("td");
+            const status = document.createElement("td");
+     
   
             uid.innerHTML = row.uid;
             name.innerHTML = row.name;
-            role.innerHTML = row.role;
-            dob.innerHTML = row.dob;
-            age.innerHTML = row.age;
-  
+            status.innerHTML = row.status;
+      
             tr.appendChild(uid);
             tr.appendChild(name);
-            tr.appendChild(role);
-            tr.appendChild(dob);
-            tr.appendChild(age);
+            tr.appendChild(status);
+       
   
             resultContainer.appendChild(tr);
           }
