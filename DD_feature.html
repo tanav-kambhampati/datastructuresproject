@@ -1,0 +1,84 @@
+---
+layout: base
+permalink: /Feature/
+title: Feature
+---
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messaging System</title>
+    <style>
+        /* CSS styles as before */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="conversation-list">
+            <h2>Conversations</h2>
+            <ul id="conversation-list">
+                <!-- Conversation list items will be dynamically added here -->
+            </ul>
+        </div>
+        <div class="messages" id="messages">
+            <!-- Message display area will be dynamically updated here -->
+        </div>
+    </div>
+
+    <!-- jQuery library (you can include it from a CDN) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Function to load conversations
+            function loadConversations() {
+                $.get("http://127.0.0.1:8064/api/conversations", function (data) {
+                    $("#conversation-list").empty();
+                    data.forEach(function (conversation) {
+                        $("#conversation-list").append('<li data-conversation-id="' + conversation.id + '">' + conversation.name + '</li>');
+                    });
+                });
+            }
+
+            // Function to load messages for a specific conversation
+            function loadMessages(conversationId) {
+                $.get("http://127.0.0.1:8064/api/messages?conversationId=" + conversationId, function (data) {
+                    $("#messages").empty();
+                    data.forEach(function (message) {
+                        $("#messages").append('<div class="message">' + message.content + '</div>');
+                    });
+                });
+            }
+
+            // Load conversations when the page loads
+            loadConversations();
+
+            // Load messages for the selected conversation when a conversation is clicked
+            $(document).on("click", "#conversation-list li", function () {
+                var conversationId = $(this).data("conversation-id");
+                loadMessages(conversationId);
+                $("#conversation-list li").removeClass("active");
+                $(this).addClass("active");
+            });
+
+            // Function to send a message
+            function sendMessage(conversationId, messageContent) {
+                $.post("http://127.0.0.1:8064/api/sendMessage", { conversationId: conversationId, content: messageContent }, function (data) {
+                    loadMessages(conversationId);
+                });
+            }
+
+            // Example: Send a message when a button is clicked
+            $("#send-message-btn").click(function () {
+                var conversationId = $("#conversation-list li.active").data("conversation-id");
+                var messageContent = $("#message-input").val();
+                sendMessage(conversationId, messageContent);
+            });
+        });
+    </script>
+</body>
+</html>
+    
