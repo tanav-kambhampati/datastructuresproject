@@ -135,17 +135,22 @@ table td {
 
     // Fetch data and populate the table as before
     // const url = "http://127.0.0.1:8064/api/job/";
-    const url = "https://jobly.stu.nighthawkcodingsociety.com/api/job/";
-    const headers = {
+    const displayJobsUrl = "https://jobly.stu.nighthawkcodingsociety.com/api/job/";
+    const displayJobsHeaders = {
         method: 'GET',
         mode: 'cors',
         cache: 'default',
-        credentials: 'include',
+  
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            // Add the Access-Control-Allow-Origin header here
+      
         },
     };
-    fetch(url, headers)
+
+ 
+
+    fetch(displayJobsUrl, displayJobsHeaders)
         .then(response => {
             if (response.status !== 200) {
                 // Handle error
