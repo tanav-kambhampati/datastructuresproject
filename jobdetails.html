@@ -95,19 +95,20 @@ permalink: /jobdetails/
     const resultContainer = document.getElementById("results");
   
     // prepare fetch options
-    const url = "http://127.0.0.1:8064/api/job/?id=" + jobdetails;
-    const headers = {
+    const displayJobDetailsUrl = 'https://jobly.stu.nighthawkcodingsociety.com/api/job/?id=' + jobdetails;
+    // const url = "http://127.0.0.1:8064/api/job/?id=" + jobdetails;
+    const displayJobDetailsHeaders = {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
       cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'include', // include, *same-origin, omit
+     
       headers: {
         'Content-Type': 'application/json'
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
     };
     // fetch the API
-    fetch(url, headers)
+    fetch(displayJobDetailsUrl, displayJobDetailsHeaders)
       .then(response => {
         // Error handling
         if (response.status !== 200) {
@@ -174,19 +175,20 @@ permalink: /jobdetails/
 </script>
 <script>
     function apply_Count() {
-    const counturl = "http://127.0.0.1:8064/api/jobuser/applycount?id=" + jobdetails;
-    const countheaders = {
+    // const displayApplyCountUrl = "http://127.0.0.1:8064/api/jobuser/applycount?id=" + jobdetails;
+    const displayApplyCountUrl = "https://jobly.stu.nighthawkcodingsociety.com/api/jobuser/applycount?id=" + jobdetails;
+    const displayApplyCountHeaders = {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
       cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'include', // include, *same-origin, omit
+ 
       headers: {
         'Content-Type': 'application/json'
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
     };
     // fetch the API
-    fetch(counturl, countheaders)
+    fetch(displayApplyCountUrl, displayApplyCountHeaders)
       .then(response => {
         // Error handling
         if (response.status !== 200) {

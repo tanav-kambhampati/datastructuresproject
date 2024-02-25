@@ -25,21 +25,22 @@ title: Users
     // prepare HTML result container for new output
     const resultContainer = document.getElementById("results");
   
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
     // prepare fetch options
     //const url = "http://127.0.0.1:8064/api/users/";
-    const url = "https://jobly.stu.nighthawkcodingsociety.com/api/users/";
-    const headers = {
+    const displayUsersUrl = uri + "/api/users/";
+    const displayUsersHeaders = {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
       cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'include', // include, *same-origin, omit
+     
       headers: {
         'Content-Type': 'application/json'
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
     };
     // fetch the API
-    fetch(url, headers)
+    fetch(displayUsersUrl, displayUsersHeaders)
       .then(response => {
         console.log(response)
         if (response.status !== 200) {
