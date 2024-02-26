@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indeed Salaries</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+        header {
+            background-color: #2456a6;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .salary-card {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .salary-card h2 {
+            margin-top: 0;
+            color: #2456a6;
+        }
+        .salary-card p {
+            margin: 5px 0;
+        }
+        .search {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Indeed Salaries</h1>
+    </header>
+    <div class="container">
+        <div class="search">
+            <input type="text" id="searchInput" placeholder="Search by job title...">
+            <button class="button" onclick="filterSalaries()">Search</button>
+        </div>
+        <button class="button" onclick="loadSalaries()">Load Salaries</button>
+        <button class="button" onclick="clearSalaries()">Clear Salaries</button>    
+        <div id="salaryContainer"></div>
+    </div>
+    <script>
+        function loadSalaries() {
+            const url = 'http:/127.0.0.1:8064/api/salaries'; // Replace with your backend endpoint
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    displaySalaries(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function displaySalaries(salaries) {
+            const salaryContainer = document.getElementById('salaryContainer');
+            salaryContainer.innerHTML = ''; // Clear existing data
+            salaries.forEach(salary => {
+                const card = document.createElement('div');
+                card.classList.add('salary-card');
+                const title = document.createElement('h2');
+                title.textContent = salary.jobTitle;
+                const amount = document.createElement('p');
+                amount.textContent = `Salary: ${salary.amount} | Location: ${salary.location} | Experience: ${salary.experience}`;
+                card.appendChild(title);
+                card.appendChild(amount);
+                salaryContainer.appendChild(card);
+            });
+        }
+
+        function clearSalaries() {
+            document.getElementById('salaryContainer').innerHTML = '';
+        }
+
+        function filterSalaries() {
+            // Implement filtering logic if needed
+        }
+    </script>
+</body>
+</html>
