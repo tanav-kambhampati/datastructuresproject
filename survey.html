@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+        header {
+            background-color: #2456a6;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .question {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Survey</h1>
+    </header>
+    <div class="container">
+        <form id="surveyForm">
+            <div class="question">
+                <label for="q1">What is your preferred job title?</label><br>
+                <input type="text" id="q1" name="q1">
+            </div>
+            <div class="question">
+                <label for="q2">What is your desired salary range?</label><br>
+                <input type="text" id="q2" name="q2">
+            </div>
+            <div class="question">
+                <label for="q3">Where do you prefer to work? (City, Country)</label><br>
+                <input type="text" id="q3" name="q3">
+            </div>
+            <div class="question">
+                <label for="q4">How many years of experience do you have?</label><br>
+                <input type="text" id="q4" name="q4">
+            </div>
+            <div class="question">
+                <label for="q5">What is your highest level of education?</label><br>
+                <select id="q5" name="q5">
+                    <option value="">Select One</option>
+                    <option value="High School">High School</option>
+                    <option value="Bachelor's Degree">Bachelor's Degree</option>
+                    <option value="Master's Degree">Master's Degree</option>
+                    <option value="PhD">PhD</option>
+                </select>
+            </div>
+            <br>
+            <button type="submit" class="button">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        const surveyForm = document.getElementById('surveyForm');
+
+        surveyForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const formDataObject = {};
+            formData.forEach((value, key) => {
+                formDataObject[key] = value;
+            });
+            const queryString = new URLSearchParams(formDataObject).toString();
+            window.location.href = `main.html?${queryString}`;
+        });
+    </script>
+</body>
+</html>

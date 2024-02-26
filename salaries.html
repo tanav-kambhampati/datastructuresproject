@@ -1,3 +1,8 @@
+---
+layout: base
+permalink: /salaries/
+title: salaries
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,7 +73,11 @@
         <button class="button" onclick="clearSalaries()">Clear Salaries</button>    
         <div id="salaryContainer"></div>
     </div>
+    <div class="container">
+        <a href="survey.html" class="button">Take Survey</a>
+    </div>
     <script>
+        // Function to load salaries based on survey data
         function loadSalaries() {
             const url = 'http:/127.0.0.1:8064/api/salaries'; // Replace with your backend endpoint
             fetch(url)
@@ -86,6 +95,7 @@
                 });
         }
 
+        // Function to display salaries
         function displaySalaries(salaries) {
             const salaryContainer = document.getElementById('salaryContainer');
             salaryContainer.innerHTML = ''; // Clear existing data
@@ -102,10 +112,12 @@
             });
         }
 
+        // Function to clear salaries
         function clearSalaries() {
             document.getElementById('salaryContainer').innerHTML = '';
         }
 
+        // Function to filter salaries (if needed)
         function filterSalaries() {
             // Implement filtering logic if needed
         }
