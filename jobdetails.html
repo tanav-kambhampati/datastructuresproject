@@ -95,8 +95,8 @@ permalink: /jobdetails/
     const resultContainer = document.getElementById("results");
   
     // prepare fetch options
-    const displayJobDetailsUrl = 'https://jobly.stu.nighthawkcodingsociety.com/api/job/?id=' + jobdetails;
-    // const url = "http://127.0.0.1:8064/api/job/?id=" + jobdetails;
+    //const displayJobDetailsUrl = 'https://jobly.stu.nighthawkcodingsociety.com/api/job/?id=' + jobdetails;
+    const displayJobDetailsUrl = "http://127.0.0.1:8064/api/job/?id=" + jobdetails;
     const displayJobDetailsHeaders = {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
@@ -175,8 +175,8 @@ permalink: /jobdetails/
 </script>
 <script>
     function apply_Count() {
-    // const displayApplyCountUrl = "http://127.0.0.1:8064/api/jobuser/applycount?id=" + jobdetails;
-    const displayApplyCountUrl = "https://jobly.stu.nighthawkcodingsociety.com/api/jobuser/applycount?id=" + jobdetails;
+    const displayApplyCountUrl = "http://127.0.0.1:8064/api/jobuser/applycount?id=" + jobdetails;
+    // const displayApplyCountUrl = "https://jobly.stu.nighthawkcodingsociety.com/api/jobuser/applycount?id=" + jobdetails;
     const displayApplyCountHeaders = {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin

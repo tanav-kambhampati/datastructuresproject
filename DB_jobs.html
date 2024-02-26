@@ -134,13 +134,13 @@ table td {
     document.getElementById("searchInput").addEventListener("input", filterJobs);
 
     // Fetch data and populate the table as before
-    // const url = "http://127.0.0.1:8064/api/job/";
-    const displayJobsUrl = "https://jobly.stu.nighthawkcodingsociety.com/api/job/";
+    const displayJobsUrl = "http://127.0.0.1:8064/api/job/";
+    //const displayJobsUrl = "https://jobly.stu.nighthawkcodingsociety.com/api/job/";
     const displayJobsHeaders = {
         method: 'GET',
         mode: 'cors',
         cache: 'default',
-  
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
             // Add the Access-Control-Allow-Origin header here
