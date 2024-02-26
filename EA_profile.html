@@ -80,6 +80,8 @@ title: Profile
 </style>
 </head>
 <body>
+    <h1 id="userName"></h1>
+    <h2 id="roledescription"></h2>
     <table>
         <thead>
             <tr>
@@ -135,10 +137,15 @@ title: Profile
 
       }
       response.json().then(data => {
-        if (data == "Employer") {
+        console.log(data)
+        if (data.status == "Employer") {
             employerRoute()
-        } else if (data == "Freelancer") {
+            document.getElementById('userName').innerHTML = `Hello ${data.name}`
+            document.getElementById('roledescription').innerHTML = `Since you're an ${data.status}, you are able to view the jobs you posted here. Edit the details of your job by clicking on the "Edit Job" button.`
+        } else if (data.status == "Freelancer") {
             freelancerRoute()
+            document.getElementById('userName').innerHTML = `Hello ${data.name}`
+            document.getElementById('roledescription').innerHTML = `Since you're a ${data.status}, you are able to view the jobs you applied to here.`
         }
       });
     })
