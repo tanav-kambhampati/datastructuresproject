@@ -145,6 +145,22 @@ title: Post a Job
                  
 
     <script>
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+              }
+              if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+              }
+            }
+            return "";
+          }
         // JavaScript code
         function postJob() {
             const title = document.getElementById("title").value;
@@ -154,7 +170,9 @@ title: Post a Job
             const pay = parseInt(document.getElementById("pay").value);
             const field = document.getElementById("field").value;
             const location = document.getElementById("location").value; 
-        
+            
+            const jobpostee = parseInt(getCookie("userid"))
+
             const userData = {
                 title: title,
                 company: company,
@@ -162,7 +180,8 @@ title: Post a Job
                 qualification: qualification,
                 pay: pay,
                 field: field,
-                location: location 
+                location: location,
+                jobpostee: jobpostee
             };
         
             const requestOptions = {
