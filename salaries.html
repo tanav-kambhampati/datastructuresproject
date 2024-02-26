@@ -58,6 +58,23 @@ title: Salaries
         .search {
             margin-bottom: 20px;
         }
+        .survey-container {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .question {
+            margin-bottom: 10px;
+            color: #000;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -70,32 +87,55 @@ title: Salaries
             <button class="button" onclick="filterSalaries()">Search</button>
         </div>
         <button class="button" onclick="loadSalaries()">Load Salaries</button>
-        <button class="button" onclick="clearSalaries()">Clear Salaries</button>    
+        <button class="button" onclick="clearSalaries()">Clear Salaries</button>
         <div id="salaryContainer"></div>
     </div>
-    <div class="container">
-        <a href="survey.html" class="button">Take Survey</a> <!-- Updated href attribute -->
+    <div class="container" id="surveyButtonContainer" style="display:none;">
+        <button class="button" onclick="showSurvey()">Take Survey</button>
+    </div>
+    <div class="survey-container" id="surveyContainer">
+        <form id="surveyForm">
+            <div id="surveyJobDetails" style="display:none;">
+                <div class="question">
+                    <label for="jobTitle">Job Title:</label><br>
+                    <input type="text" id="jobTitle" name="jobTitle" readonly>
+                </div>
+                <div class="question">
+                    <label for="salary">Salary:</label><br>
+                    <input type="text" id="salary" name="salary" readonly>
+                </div>
+                <div class="question">
+                    <label for="location">Location:</label><br>
+                    <input type="text" id="location" name="location" readonly>
+                </div>
+                <div class="question">
+                    <label for="experience">Experience:</label><br>
+                    <input type="text" id="experience" name="experience" readonly>
+                </div>
+                <div class="question">
+                    <label for="degree">Degree:</label><br>
+                    <input type="text" id="degree" name="degree" readonly>
+                </div>
+            </div>
+            <button type="submit" class="button">Submit Survey</button>
+        </form>
     </div>
     <script>
-        // Function to load salaries based on survey data
         function loadSalaries() {
-            const url = 'http:/127.0.0.1:8064/api/salaries'; // Replace with your backend endpoint
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    displaySalaries(data);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+            // Simulating a backend call to fetch salaries data
+            const dummySalaries = [
+                { jobTitle: "Software Engineer", amount: "$100,000", location: "New York, NY", experience: "3 years", degree: "Bachelor's Degree", hours: "40 hours per week" },
+                { jobTitle: "Data Analyst", amount: "$80,000", location: "San Francisco, CA", experience: "2 years", degree: "Master's Degree", hours: "35 hours per week" },
+                { jobTitle: "UX Designer", amount: "$90,000", location: "Seattle, WA", experience: "4 years", degree: "Bachelor's Degree", hours: "37.5 hours per week" }
+            ];
+
+            // Displaying dummy salaries data
+            displaySalaries(dummySalaries);
+
+            // Show the survey button after loading salaries
+            document.getElementById('surveyButtonContainer').style.display = 'block';
         }
 
-        // Function to display salaries
         function displaySalaries(salaries) {
             const salaryContainer = document.getElementById('salaryContainer');
             salaryContainer.innerHTML = ''; // Clear existing data
@@ -104,24 +144,54 @@ title: Salaries
                 card.classList.add('salary-card');
                 const title = document.createElement('h2');
                 title.textContent = salary.jobTitle;
-                const amount = document.createElement('p');
-                amount.textContent = `Salary: ${salary.amount} | Location: ${salary.location} | Experience: ${salary.experience}`;
+                const details = document.createElement('p');
+                details.innerHTML = `<strong>Salary:</strong> ${salary.amount} | <strong>Location:</strong> ${salary.location} | <strong>Experience:</strong> ${salary.experience} | <strong>Degree:</strong> ${salary.degree} | <strong>Hours:</strong> ${salary.hours}`;
                 card.appendChild(title);
-                card.appendChild(amount);
+                card.appendChild(details);
+                card.onclick = function() { // Show job details in survey form on click
+                    showJobDetails(salary);
+                };
                 salaryContainer.appendChild(card);
             });
         }
 
-        // Function to clear salaries
         function clearSalaries() {
             document.getElementById('salaryContainer').innerHTML = '';
         }
 
-        // Function to filter salaries (if needed)
         function filterSalaries() {
             // Implement filtering logic if needed
         }
+
+        function showSurvey() {
+            document.getElementById('surveyContainer').style.display = 'block';
+        }
+
+        function showJobDetails(salary) {
+            document.getElementById('surveyJobDetails').style.display = 'block';
+            document.getElementById('jobTitle').value = salary.jobTitle;
+            document.getElementById('salary').value = salary.amount;
+            document.getElementById('location').value = salary.location;
+            document.getElementById('experience').value = salary.experience;
+            document.getElementById('degree').value = salary.degree;
+        }
+
+        const surveyForm = document.getElementById('surveyForm');
+        surveyForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const formDataObject = {};
+            formData.forEach((value, key) => {
+                formDataObject[key] = value;
+            });
+            console.log(formDataObject); // You can process the form data here
+            // For example, you can send it to a server using fetch()
+        });
     </script>
 </body>
 </html>
+
+
+
+
 
