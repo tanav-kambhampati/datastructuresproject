@@ -1,14 +1,14 @@
 ---
 layout: base
-permalink: /salaries/
-title: Salaries
+permalink: /survey/
+title: Survey
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indeed Salaries</title>
+    <title>JoblySurveyRecommendation</title>
     <style>
         /* Your original CSS styles */
         body {
@@ -17,7 +17,6 @@ title: Salaries
             padding: 0;
             background-color: #f4f4f4;
         }
-
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -27,11 +26,9 @@ title: Salaries
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
         }
-
         .search {
             margin-bottom: 20px;
         }
-
         .button {
             padding: 10px 20px;
             border: none;
@@ -40,46 +37,70 @@ title: Salaries
             cursor: pointer;
             border-radius: 5px;
         }
-
         .button:hover {
             background-color: #0056b3;
         }
-
         .salary-card {
             border: 1px solid #ccc;
             padding: 10px;
             margin-bottom: 10px;
             border-radius: 5px;
         }
-
         .survey-container {
             margin-top: 20px;
         }
-
         .warning-message {
             background-color: #f44336;
             color: white;
             text-align: center;
             padding: 10px;
+            width: 100%;
+            margin-bottom: 10px; /* Added margin for better separation */
+            display: none; /* Initially hide the warning message */
+        }
+        .warning-message p {
+            margin: 0; /* Remove default margin to avoid extra space */
+        }
+        /* CSS rule to make text black */
+        .salary-card h2,
+        .salary-card p {
+            color: black;
+        }
+        .success-message {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
             display: none;
-            width: 100%; /* Ensure the message spans the full width */
-            position: fixed; /* Fix the message at the top of the viewport */
-            top: 0; /* Position it at the top */
-            z-index: 1000; /* Ensure it's on top of other content */
+        }
+        #optimalDataMessage {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="warning-message" id="warningMessage">Finish the survey for optimal results</div>
+    <div id="optimalDataMessage">
+        <p>Please complete the survey first to load optimal data!</p>
+    </div>
+    <div class="warning-message" id="warningMessage" style="display: none;">
+        <p>Please complete the survey to view salary information.</p>
+    </div>
+    <div class="success-message" id="successMessage">Processing your input...</div>
     <header>
-        <h1>Indeed Salaries</h1>
+        <h1>Jobly Survey Salaries</h1>
     </header>
     <div class="container">
         <div class="search">
             <input type="text" id="searchInput" placeholder="Search by job title...">
             <button class="button" onclick="filterSalaries()">Search</button>
         </div>
-        <button class="button" onclick="loadSalaries()">Load Salaries</button>
+        <!-- Disable the "Load Salaries" button initially -->
+        <button class="button" onclick="loadSalariesWithCheck()" id="loadSalariesButton" disabled>Load Salaries</button>
         <button class="button" onclick="clearSalaries()">Clear Salaries</button>
         <div id="salaryContainer"></div>
     </div>
@@ -91,42 +112,42 @@ title: Salaries
         <form id="surveyForm">
             <div class="question">
                 <label for="artisticTalent">Would you say you have artistic talent?</label><br>
-                <input type="radio" id="artisticTalentYes" name="artisticTalent" value="yes">
+                <input type="radio" id="artisticTalentYes" name="artisticTalent" value="yes" required>
                 <label for="artisticTalentYes">Yes</label>
                 <input type="radio" id="artisticTalentNo" name="artisticTalent" value="no">
                 <label for="artisticTalentNo">No</label>
             </div>
             <div class="question">
                 <label for="fastTyper">Would you say you are a fast typer?</label><br>
-                <input type="radio" id="fastTyperYes" name="fastTyper" value="yes">
+                <input type="radio" id="fastTyperYes" name="fastTyper" value="yes" required>
                 <label for="fastTyperYes">Yes</label>
                 <input type="radio" id="fastTyperNo" name="fastTyper" value="no">
                 <label for="fastTyperNo">No</label>
             </div>
             <div class="question">
                 <label for="handyPerson">Do you enjoy being a handy person and like fixing other people's problems?</label><br>
-                <input type="radio" id="handyPersonYes" name="handyPerson" value="yes">
+                <input type="radio" id="handyPersonYes" name="handyPerson" value="yes" required>
                 <label for="handyPersonYes">Yes</label>
                 <input type="radio" id="handyPersonNo" name="handyPerson" value="no">
                 <label for="handyPersonNo">No</label>
             </div>
             <div class="question">
                 <label for="showOff">Do you like showing off what you have worked on?</label><br>
-                <input type="radio" id="showOffYes" name="showOff" value="yes">
+                <input type="radio" id="showOffYes" name="showOff" value="yes" required>
                 <label for="showOffYes">Yes</label>
                 <input type="radio" id="showOffNo" name="showOff" value="no">
                 <label for="showOffNo">No</label>
             </div>
             <div class="question">
                 <label for="teamPlayer">Are you a team player?</label><br>
-                <input type="radio" id="teamPlayerYes" name="teamPlayer" value="yes">
+                <input type="radio" id="teamPlayerYes" name="teamPlayer" value="yes" required>
                 <label for="teamPlayerYes">Yes</label>
                 <input type="radio" id="teamPlayerNo" name="teamPlayer" value="no">
                 <label for="teamPlayerNo">No</label>
             </div>
             <div class="question">
                 <label for="independent">Do you prefer working independently?</label><br>
-                <input type="radio" id="independentYes" name="independent" value="yes">
+                <input type="radio" id="independentYes" name="independent" value="yes" required>
                 <label for="independentYes">Yes</label>
                 <input type="radio" id="independentNo" name="independent" value="no">
                 <label for="independentNo">No</label>
@@ -145,22 +166,53 @@ title: Salaries
             { id: 7, jobTitle: "UX Designer", salary: 25, location: "Remote", experience: "Proficient experience", degree: "Masters" }
         ];
 
-        function loadSalaries() {
+        // Function to handle form submission
+        function handleSurveySubmission(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const formDataObject = {};
+            formData.forEach((value, key) => {
+                formDataObject[key] = value;
+            });
+
+            // Check if all required radio buttons are selected
+            const allRequiredRadioButtons = document.querySelectorAll('input[type="radio"][required]');
+            let allSelected = true;
+            allRequiredRadioButtons.forEach(radioButton => {
+                if (!radioButton.checked) {
+                    allSelected = false;
+                }
+            });
+
+            if (allSelected) {
+                document.getElementById('successMessage').style.display = 'block';
+                setTimeout(function () {
+                    document.getElementById('successMessage').style.display = 'none';
+                    localStorage.setItem('surveySubmitted', true);
+                    // Enable the "Load Salaries" button after the survey is submitted
+                    document.getElementById('loadSalariesButton').disabled = false;
+                }, 2000);
+            } else {
+                // Display error message if not all radio buttons are selected
+                document.getElementById('warningMessage').style.display = 'block';
+            }
+        }
+
+        // Function to handle the "Load Salaries" button click
+        function loadSalariesWithCheck() {
             const surveySubmitted = localStorage.getItem('surveySubmitted');
             if (!surveySubmitted) {
                 document.getElementById('warningMessage').style.display = 'block';
                 return;
             }
-
-            document.getElementById('warningMessage').style.display = 'none';
-            displaySalaries(jobs);
+            loadSalaries();
         }
 
-        function displaySalaries(salaries) {
+        // Function to display salaries
+        function loadSalaries() {
             const salaryContainer = document.getElementById('salaryContainer');
-            salaryContainer.innerHTML = ''; // Clear previous content
-            
-            salaries.forEach(job => {
+            salaryContainer.innerHTML = ''; // Clear previous content        
+            jobs.forEach(job => {
                 const salaryCard = document.createElement('div');
                 salaryCard.classList.add('salary-card');
                 const jobDetails = `
@@ -175,49 +227,25 @@ title: Salaries
             });
         }
 
+        // Function to clear salaries
         function clearSalaries() {
             document.getElementById('salaryContainer').innerHTML = '';
         }
 
+        // Function to handle form submission
         const surveyForm = document.getElementById('surveyForm');
-        surveyForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-            const formDataObject = {};
-            formData.forEach((value, key) => {
-                formDataObject[key] = value;
-            });
-            console.log(formDataObject); // Log the survey form data
-
-            // Determine job recommendation based on survey responses
-            let recommendation = '';
-            if (formDataObject.artisticTalent === 'yes') {
-                recommendation = 'UX Designer';
-            } else if (formDataObject.fastTyper === 'yes') {
-                recommendation = 'Software Engineer';
-            } else if (formDataObject.handyPerson === 'yes') {
-                recommendation = 'IT Technician';
-            } else if (formDataObject.showOff === 'yes') {
-                recommendation = 'Web Developer';
-            } else if (formDataObject.teamPlayer === 'yes' && formDataObject.independent === 'no') {
-                recommendation = 'Web Developer';
-            } else if (formDataObject.teamPlayer === 'no' && formDataObject.independent === 'yes') {
-                recommendation = 'Software Engineer';
-            }
-
-            if (recommendation) {
-                document.getElementById('jobTitle').value = recommendation;
-                console.log('Recommended job:', recommendation); // Log the recommended job
-            }
-
-            localStorage.setItem('surveySubmitted', true); // Set a flag to indicate the survey has been submitted
-
-            // Reload salaries after survey submission
-            loadSalaries();
-        });
+        surveyForm.addEventListener('submit', handleSurveySubmission);
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
 
 
 
