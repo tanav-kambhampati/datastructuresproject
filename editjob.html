@@ -1,6 +1,6 @@
 ---
 layout: base
-permalink: /jobdetails/
+permalink: /editjob/
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -135,36 +135,32 @@ permalink: /jobdetails/
         resultContainer.appendChild(errorCard);
       });
 
-    function renderJobDetails(data) {
+      function renderJobDetails(data) {
         // Create a card
         const card = document.createElement("div");
         card.classList.add("card");
-
-        // Populate card with job details
+    
+        // Populate card with job details and editable input fields
         card.innerHTML = `
             <div class="card-body">
-                
                 <h5 class="card-title">
                     <span class="back-arrow" onclick="goBack()">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 11H7.41l5.3-5.29a1 1 0 1 0-1.42-1.42l-7 7a1 1 0 0 0 0 1.42l7 7a1 1 0 0 0 1.42-1.42L7.41 13H20a1 1 0 0 0 0-2z"/></svg>
                     </span>
-                    ${data.title}
+                    <input type="text" id="title" value="${data.title}" />
                     <div class="dynamiccount">
-                    <p id="applycount"></p>
+                        <p id="applycount"></p>
                     </div>
                 </h5>
-          
-                
             </div>
-                <p class="card-text"><strong>Description:</strong> ${data.description}</p>
-                <p class="card-text"><strong>Field:</strong> ${data.field}</p>
-                <p class="card-text"><strong>Location:</strong> ${data.location}</p>
-                <p class="card-text"><strong>Qualification:</strong> ${data.qualification}</p>
-                <p class="card-text"><strong>Hourly Pay:</strong> ${data.pay}</p>
-                <a href="{{site.baseurl}}/applyjob?id=${data.id}" class="btn btn-primary">Apply For This Job</a>
-            </div>
+            <p class="card-text"><strong>Description:</strong> <textarea id="description">${data.description}</textarea></p>
+            <p class="card-text"><strong>Field:</strong> <input type="text" id="field" value="${data.field}" /></p>
+            <p class="card-text"><strong>Location:</strong> <input type="text" id="location" value="${data.location}" /></p>
+            <p class="card-text"><strong>Qualification:</strong> <input type="text" id="qualification" value="${data.qualification}" /></p>
+            <p class="card-text"><strong>Hourly Pay:</strong> <input type="text" id="pay" value="${data.pay}" /></p>
+            <button onclick="editJob()" class="btn btn-primary">Save Changes</button>
         `;
-
+    
         // Append card to container
         resultContainer.appendChild(card);
     }
@@ -209,6 +205,70 @@ permalink: /jobdetails/
         console.error(err);
         
       });
+    }
+</script>
+<script>
+    function editJob() {
+        const title = document.getElementById("title").value;
+            
+            const description = document.getElementById("description").value;
+            const qualification = document.getElementById("qualification").value;
+            const pay = parseInt(document.getElementById("pay").value);
+            const field = document.getElementById("field").value;
+            const location = document.getElementById("location").value; 
+            
+         
+
+            const userData = {
+                title: title,
+         
+                description: description,
+                qualification: qualification,
+                pay: pay,
+                field: field,
+                location: location,
+         
+            };
+        
+            const editJobHeaders = {
+                method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, *cors, same-origin
+                cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
+                body: JSON.stringify(userData),
+                credentials: 'include', // include, *same-origin, omit
+                headers: {
+                  'Content-Type': 'application/json'
+                  // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+              };
+        
+         
+            // const url = 'http://127.0.0.1:8064/api/jwt_auth/register';
+            // const url = '://127.0.0.1http:8064/api/users/';
+            const editJobUrl = 'http://127.0.0.1:8064/api/job/updatejob?id=' + jobdetails;
+            
+            fetch(editJobUrl, editJobHeaders)
+          .then(response => {
+              // Handle server response
+              if (response.status !== 200) {
+                  const errorMsg = 'Database response error: ' + response.status;
+                  console.log(errorMsg);
+                  window.location.href = '{{site.baseurl}}/403';
+              }
+  
+              // Response contains valid result
+              response.json().then(data => {
+                  if (data !== null) {
+                    
+                      console.log(data)
+                      window.location.href = '{{site.baseurl}}/jobs';
+                  }
+              });
+          })
+          .catch(error => {
+              // Handle fetch errors
+              console.error('Fetch error:', error);
+          });
     }
 </script>
 </body>

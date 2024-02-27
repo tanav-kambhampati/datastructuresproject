@@ -91,8 +91,9 @@ title: Profile
                 <th>Field</th>
                 <th>Location</th>
                 <th>Qualification</th>
-                <th>Pay</th>
+                <th>Hourly Pay</th>
                 <th>View</th>
+                <th id="editColumn"></th>
             </tr>
         </thead>
         <tbody id="results">
@@ -100,6 +101,7 @@ title: Profile
     </table>
 
 <script>
+    const editColumn = document.getElementById('editColumn');
     const resultContainer = document.getElementById("results");
     function getCookie(cname) {
         var name = cname + "=";
@@ -176,6 +178,7 @@ title: Profile
     
           }
           response.json().then(data => {
+            editColumn.innerHTML = 'Edit Job Details';
             data.forEach(row => {
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
@@ -186,7 +189,9 @@ title: Profile
                     <td>${row.location}</td>
                     <td>${row.qualification}</td>
                     <td>${row.pay}</td>
+          
                     <td><a href="/joblyFrontend/applicants?id=${row.id}">View Applicants</a></td>
+                    <td><a href="/joblyFrontend/editjob?id=${row.id}">Edit Job</a></td>
                 `;
                 resultContainer.appendChild(tr);
             });
