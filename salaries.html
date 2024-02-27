@@ -10,74 +10,67 @@ title: Salaries
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Indeed Salaries</title>
     <style>
+        /* Your original CSS styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            color: #000;
+            background-color: #f4f4f4;
         }
-        header {
-            background-color: #2456a6;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+
         .container {
-            width: 80%;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-        }
-        .button {
-            background-color: #4caf50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 5px;
-        }
-        .salary-card {
             background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
         }
-        .salary-card h2 {
-            margin-top: 0;
-            color: #2456a6;
-        }
-        .salary-card p {
-            margin: 5px 0;
-        }
+
         .search {
             margin-bottom: 20px;
         }
-        .survey-container {
-            display: none;
-            padding: 20px;
+
+        .button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .salary-card {
             border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            margin-bottom: 20px;
-            animation: fadeIn 1s ease-in-out;
-        }
-        .question {
+            padding: 10px;
             margin-bottom: 10px;
-            color: #000;
+            border-radius: 5px;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+
+        .survey-container {
+            margin-top: 20px;
+        }
+
+        .warning-message {
+            background-color: #f44336;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            display: none;
+            width: 100%; /* Ensure the message spans the full width */
+            position: fixed; /* Fix the message at the top of the viewport */
+            top: 0; /* Position it at the top */
+            z-index: 1000; /* Ensure it's on top of other content */
         }
     </style>
 </head>
 <body>
+    <div class="warning-message" id="warningMessage">Finish the survey for optimal results</div>
     <header>
         <h1>Indeed Salaries</h1>
     </header>
@@ -94,86 +87,96 @@ title: Salaries
         <button class="button" onclick="showSurvey()">Take Survey</button>
     </div>
     <div class="survey-container" id="surveyContainer">
+        <h2>Job Survey</h2>
         <form id="surveyForm">
-            <div id="surveyJobDetails" style="display:none;">
-                <div class="question">
-                    <label for="jobTitle">Job Title:</label><br>
-                    <input type="text" id="jobTitle" name="jobTitle" readonly>
-                </div>
-                <div class="question">
-                    <label for="salary">Salary:</label><br>
-                    <input type="text" id="salary" name="salary" readonly>
-                </div>
-                <div class="question">
-                    <label for="location">Location:</label><br>
-                    <input type="text" id="location" name="location" readonly>
-                </div>
-                <div class="question">
-                    <label for="experience">Experience:</label><br>
-                    <input type="text" id="experience" name="experience" readonly>
-                </div>
-                <div class="question">
-                    <label for="degree">Degree:</label><br>
-                    <input type="text" id="degree" name="degree" readonly>
-                </div>
+            <div class="question">
+                <label for="artisticTalent">Would you say you have artistic talent?</label><br>
+                <input type="radio" id="artisticTalentYes" name="artisticTalent" value="yes">
+                <label for="artisticTalentYes">Yes</label>
+                <input type="radio" id="artisticTalentNo" name="artisticTalent" value="no">
+                <label for="artisticTalentNo">No</label>
+            </div>
+            <div class="question">
+                <label for="fastTyper">Would you say you are a fast typer?</label><br>
+                <input type="radio" id="fastTyperYes" name="fastTyper" value="yes">
+                <label for="fastTyperYes">Yes</label>
+                <input type="radio" id="fastTyperNo" name="fastTyper" value="no">
+                <label for="fastTyperNo">No</label>
+            </div>
+            <div class="question">
+                <label for="handyPerson">Do you enjoy being a handy person and like fixing other people's problems?</label><br>
+                <input type="radio" id="handyPersonYes" name="handyPerson" value="yes">
+                <label for="handyPersonYes">Yes</label>
+                <input type="radio" id="handyPersonNo" name="handyPerson" value="no">
+                <label for="handyPersonNo">No</label>
+            </div>
+            <div class="question">
+                <label for="showOff">Do you like showing off what you have worked on?</label><br>
+                <input type="radio" id="showOffYes" name="showOff" value="yes">
+                <label for="showOffYes">Yes</label>
+                <input type="radio" id="showOffNo" name="showOff" value="no">
+                <label for="showOffNo">No</label>
+            </div>
+            <div class="question">
+                <label for="teamPlayer">Are you a team player?</label><br>
+                <input type="radio" id="teamPlayerYes" name="teamPlayer" value="yes">
+                <label for="teamPlayerYes">Yes</label>
+                <input type="radio" id="teamPlayerNo" name="teamPlayer" value="no">
+                <label for="teamPlayerNo">No</label>
+            </div>
+            <div class="question">
+                <label for="independent">Do you prefer working independently?</label><br>
+                <input type="radio" id="independentYes" name="independent" value="yes">
+                <label for="independentYes">Yes</label>
+                <input type="radio" id="independentNo" name="independent" value="no">
+                <label for="independentNo">No</label>
             </div>
             <button type="submit" class="button">Submit Survey</button>
         </form>
     </div>
     <script>
+        const jobs = [
+            { id: 1, jobTitle: "Software Engineer", salary: 32, location: "Remote", experience: "Proficient experience", degree: "Masters" },
+            { id: 2, jobTitle: "Web Developer", salary: 30, location: "Remote", experience: "Proficient experience in Node", degree: "Masters" },
+            { id: 3, jobTitle: "IT Technician", salary: 30, location: "Remote", experience: "Proficient experience", degree: "Masters" },
+            { id: 4, jobTitle: "Software Developer", salary: 25, location: "On-site", experience: "Proficient experience", degree: "Bachelors" },
+            { id: 5, jobTitle: "Web Designer", salary: 20, location: "On-site", experience: "Proficient experience", degree: "Bachelors" },
+            { id: 6, jobTitle: "IT Specialist", salary: 32, location: "Remote", experience: "Proficient experience", degree: "Masters" },
+            { id: 7, jobTitle: "UX Designer", salary: 25, location: "Remote", experience: "Proficient experience", degree: "Masters" }
+        ];
+
         function loadSalaries() {
-            // Simulating a backend call to fetch salaries data
-            const dummySalaries = [
-                { jobTitle: "Software Engineer", amount: "$100,000", location: "New York, NY", experience: "3 years", degree: "Bachelor's Degree", hours: "40 hours per week" },
-                { jobTitle: "Data Analyst", amount: "$80,000", location: "San Francisco, CA", experience: "2 years", degree: "Master's Degree", hours: "35 hours per week" },
-                { jobTitle: "UX Designer", amount: "$90,000", location: "Seattle, WA", experience: "4 years", degree: "Bachelor's Degree", hours: "37.5 hours per week" }
-            ];
+            const surveySubmitted = localStorage.getItem('surveySubmitted');
+            if (!surveySubmitted) {
+                document.getElementById('warningMessage').style.display = 'block';
+                return;
+            }
 
-            // Displaying dummy salaries data
-            displaySalaries(dummySalaries);
-
-            // Show the survey button after loading salaries
-            document.getElementById('surveyButtonContainer').style.display = 'block';
+            document.getElementById('warningMessage').style.display = 'none';
+            displaySalaries(jobs);
         }
 
         function displaySalaries(salaries) {
             const salaryContainer = document.getElementById('salaryContainer');
-            salaryContainer.innerHTML = ''; // Clear existing data
-            salaries.forEach(salary => {
-                const card = document.createElement('div');
-                card.classList.add('salary-card');
-                const title = document.createElement('h2');
-                title.textContent = salary.jobTitle;
-                const details = document.createElement('p');
-                details.innerHTML = `<strong>Salary:</strong> ${salary.amount} | <strong>Location:</strong> ${salary.location} | <strong>Experience:</strong> ${salary.experience} | <strong>Degree:</strong> ${salary.degree} | <strong>Hours:</strong> ${salary.hours}`;
-                card.appendChild(title);
-                card.appendChild(details);
-                card.onclick = function() { // Show job details in survey form on click
-                    showJobDetails(salary);
-                };
-                salaryContainer.appendChild(card);
+            salaryContainer.innerHTML = ''; // Clear previous content
+            
+            salaries.forEach(job => {
+                const salaryCard = document.createElement('div');
+                salaryCard.classList.add('salary-card');
+                const jobDetails = `
+                    <h2>${job.jobTitle}</h2>
+                    <p>Salary: $${job.salary}</p>
+                    <p>Location: ${job.location}</p>
+                    <p>Experience: ${job.experience}</p>
+                    <p>Degree: ${job.degree}</p>
+                `;
+                salaryCard.innerHTML = jobDetails;
+                salaryContainer.appendChild(salaryCard);
             });
         }
 
         function clearSalaries() {
             document.getElementById('salaryContainer').innerHTML = '';
-        }
-
-        function filterSalaries() {
-            // Implement filtering logic if needed
-        }
-
-        function showSurvey() {
-            document.getElementById('surveyContainer').style.display = 'block';
-        }
-
-        function showJobDetails(salary) {
-            document.getElementById('surveyJobDetails').style.display = 'block';
-            document.getElementById('jobTitle').value = salary.jobTitle;
-            document.getElementById('salary').value = salary.amount;
-            document.getElementById('location').value = salary.location;
-            document.getElementById('experience').value = salary.experience;
-            document.getElementById('degree').value = salary.degree;
         }
 
         const surveyForm = document.getElementById('surveyForm');
@@ -184,12 +187,49 @@ title: Salaries
             formData.forEach((value, key) => {
                 formDataObject[key] = value;
             });
-            console.log(formDataObject); // You can process the form data here
-            // For example, you can send it to a server using fetch()
+            console.log(formDataObject); // Log the survey form data
+
+            // Determine job recommendation based on survey responses
+            let recommendation = '';
+            if (formDataObject.artisticTalent === 'yes') {
+                recommendation = 'UX Designer';
+            } else if (formDataObject.fastTyper === 'yes') {
+                recommendation = 'Software Engineer';
+            } else if (formDataObject.handyPerson === 'yes') {
+                recommendation = 'IT Technician';
+            } else if (formDataObject.showOff === 'yes') {
+                recommendation = 'Web Developer';
+            } else if (formDataObject.teamPlayer === 'yes' && formDataObject.independent === 'no') {
+                recommendation = 'Web Developer';
+            } else if (formDataObject.teamPlayer === 'no' && formDataObject.independent === 'yes') {
+                recommendation = 'Software Engineer';
+            }
+
+            if (recommendation) {
+                document.getElementById('jobTitle').value = recommendation;
+                console.log('Recommended job:', recommendation); // Log the recommended job
+            }
+
+            localStorage.setItem('surveySubmitted', true); // Set a flag to indicate the survey has been submitted
+
+            // Reload salaries after survey submission
+            loadSalaries();
         });
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
