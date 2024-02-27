@@ -9,7 +9,7 @@ title: Planning
 <h1>Our project is a job finder where freelancers who look for jobs can apply to jobs posted from employers. Basically, we are the middleman/bridge between freelancers and employers. Our features are a job displayer where they can be filtered, a job poster and applyer, and a job profile.</h1>
 
 ![Jobly Homepage](../images/jobly.png)
-![Jobly Homepage]()../images/hoomepage.png)
+![Jobly Homepage](../images/hoomepage.png)
 
 - <h1>The idea of our home page was to have a large search feature so that the users can provide their input. Furthermore, we wanted to add different categories/industries to fit users' needs.</h1>
 
