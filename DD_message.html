@@ -35,7 +35,7 @@ title: message
         $(document).ready(function () { 
             // Function to load conversations
             function loadConversations() {
-                $.get("http://127.0.0.1:8064/api/message", function (data) {
+                $.get("http://127.0.0.1:8064/api/message/conversation", function (data) {
                     $("#conversation-list").empty();
                     data.forEach(function (conversation) {
                         $("#conversation-list").append('<li data-conversation-id="' + conversation.id + '">' + conversation.name + '</li>');
