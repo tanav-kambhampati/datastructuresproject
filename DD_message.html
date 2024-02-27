@@ -1,7 +1,7 @@
 ---
 layout: base
-permalink: /Feature/
-title: Feature
+permalink: /message/
+title: message
 ---
 
 
@@ -32,10 +32,10 @@ title: Feature
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function () { 
             // Function to load conversations
             function loadConversations() {
-                $.get("http://127.0.0.1:8064/api/conversations", function (data) {
+                $.get("http://127.0.0.1:8064/api/message", function (data) {
                     $("#conversation-list").empty();
                     data.forEach(function (conversation) {
                         $("#conversation-list").append('<li data-conversation-id="' + conversation.id + '">' + conversation.name + '</li>');
@@ -45,7 +45,7 @@ title: Feature
 
             // Function to load messages for a specific conversation
             function loadMessages(conversationId) {
-                $.get("http://127.0.0.1:8064/api/messages?conversationId=" + conversationId, function (data) {
+                $.get("http://127.0.0.1:8064/api/message?conversationId=" + conversationId, function (data) {
                     $("#messages").empty();
                     data.forEach(function (message) {
                         $("#messages").append('<div class="message">' + message.content + '</div>');
@@ -66,7 +66,7 @@ title: Feature
 
             // Function to send a message
             function sendMessage(conversationId, messageContent) {
-                $.post("http://127.0.0.1:8064/api/sendMessage", { conversationId: conversationId, content: messageContent }, function (data) {
+                $.post("http://127.0.0.1:8064/message", { conversationId: conversationId, content: messageContent }, function (data) {
                     loadMessages(conversationId);
                 });
             }
@@ -81,4 +81,3 @@ title: Feature
     </script>
 </body>
 </html>
-    
