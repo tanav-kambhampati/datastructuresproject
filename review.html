@@ -1,0 +1,116 @@
+---
+layout: base
+permalink: /review/
+title: Reviews
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Finder Reviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        #review-form {
+            margin-bottom: 20px;
+        }
+        
+        #review-text {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        
+        .stars {
+            display: inline-block;
+        }
+        
+        .star {
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .star:hover {
+            color: orange;
+        }
+        
+        .review {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Job Finder Reviews</h1>
+    <div id="review-form">
+        <h2>Leave a Review</h2>
+        <div class="stars">
+            <span class="star" onclick="setRating(1)">★</span>
+            <span class="star" onclick="setRating(2)">★</span>
+            <span class="star" onclick="setRating(3)">★</span>
+            <span class="star" onclick="setRating(4)">★</span>
+            <span class="star" onclick="setRating(5)">★</span>
+        </div>
+        <textarea id="review-text" placeholder="Write your review here..."></textarea>
+        <button onclick="submitReview()">Submit Review</button>
+    </div>
+    <div id="reviews-list">
+        <h2>Recent Reviews</h2>
+        <!-- Fake Reviews -->
+        <div class="review">
+            <p>Rating: 4</p>
+            <p>This is a great website! I found my dream job here.</p>
+        </div>
+        <div class="review">
+            <p>Rating: 5</p>
+            <p>Excellent service! Highly recommend.</p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let selectedRating = 0;
+
+        function setRating(rating) {
+            selectedRating = rating;
+            highlightStars(rating);
+        }
+
+        function highlightStars(rating) {
+            $('.star').css('color', '');
+            $('.star').each(function(index) {
+                if (index < rating) {
+                    $(this).css('color', 'orange');
+                }
+            });
+        }
+
+        // Function to submit a review
+        function submitReview() {
+            const reviewText = $('#review-text').val();
+            if (selectedRating === 0 || reviewText.trim() === '') {
+                alert('Please select a rating and enter a review!');
+                return;
+            }
+
+            // Create a new review element
+            const reviewElement = $('<div class="review"></div>');
+            reviewElement.append(`<p>Rating: ${selectedRating}</p>`);
+            reviewElement.append(`<p>${reviewText}</p>`);
+
+            // Append the new review to the reviews list
+            $('#reviews-list').append(reviewElement);
+
+            // Clear the textarea and reset the rating
+            $('#review-text').val('');
+            selectedRating = 0;
+            highlightStars(0);
+        }
+    </script>
+</body>
+</html>
