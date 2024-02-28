@@ -12,7 +12,6 @@ title: salaries
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JoblySurveyRecommendation</title>
     <style>
-        /* Your original CSS styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -57,13 +56,13 @@ title: salaries
             text-align: center;
             padding: 10px;
             width: 100%;
-            margin-bottom: 10px; /* Added margin for better separation */
-            display: none; /* Initially hide the warning message */
+            margin-bottom: 10px; 
+            display: none; 
         }
         .warning-message p {
-            margin: 0; /* Remove default margin to avoid extra space */
+            margin: 0; 
         }
-        /* CSS rule to make text black */
+
         .salary-card h2,
         .salary-card p {
             color: black;
@@ -101,7 +100,6 @@ title: salaries
             <input type="text" id="searchInput" placeholder="Search by job title...">
             <button class="button" onclick="filterSalaries()">Search</button>
         </div>
-        <!-- Disable the "Load Salaries" button initially -->
         <button class="button" onclick="loadSalariesWithCheck()" id="loadSalariesButton" disabled>Load Salaries</button>
         <button class="button" onclick="clearSalaries()">Clear Salaries</button>
         <div id="salaryContainer"></div>
@@ -167,7 +165,6 @@ title: salaries
             { id: 6, jobTitle: "IT Specialist", salary: 32, location: "Remote", experience: "Proficient experience", degree: "Masters" },
             { id: 7, jobTitle: "UX Designer", salary: 25, location: "Remote", experience: "Proficient experience", degree: "Masters" }
         ];
-        // Function to handle form submission
         function handleSurveySubmission(event) {
             event.preventDefault();
             const formData = new FormData(this);
@@ -175,7 +172,6 @@ title: salaries
             formData.forEach((value, key) => {
                 formDataObject[key] = value;
             });
-            // Check if all required radio buttons are selected
             const allRequiredRadioButtons = document.querySelectorAll('input[type="radio"][required]');
             let allSelected = true;
             allRequiredRadioButtons.forEach(radioButton => {
@@ -188,15 +184,12 @@ title: salaries
                 setTimeout(function () {
                     document.getElementById('successMessage').style.display = 'none';
                     localStorage.setItem('surveySubmitted', true);
-                    // Enable the "Load Salaries" button after the survey is submitted
                     document.getElementById('loadSalariesButton').disabled = false;
                 }, 2000);
             } else {
-                // Display error message if not all radio buttons are selected
                 document.getElementById('warningMessage').style.display = 'block';
             }
         }
-        // Function to handle the "Load Salaries" button click
         function loadSalariesWithCheck() {
             const surveySubmitted = localStorage.getItem('surveySubmitted');
             if (!surveySubmitted) {
@@ -205,10 +198,9 @@ title: salaries
             }
             loadSalaries();
         }
-        // Function to display salaries
         function loadSalaries() {
             const salaryContainer = document.getElementById('salaryContainer');
-            salaryContainer.innerHTML = ''; // Clear previous content
+            salaryContainer.innerHTML = ''; 
             jobs.forEach(job => {
                 const salaryCard = document.createElement('div');
                 salaryCard.classList.add('salary-card');
@@ -223,11 +215,11 @@ title: salaries
                 salaryContainer.appendChild(salaryCard);
             });
         }
-        // Function to clear salaries
+
         function clearSalaries() {
             document.getElementById('salaryContainer').innerHTML = '';
         }
-        // Function to handle form submission
+        
         const surveyForm = document.getElementById('surveyForm');
         surveyForm.addEventListener('submit', handleSurveySubmission);
     </script>
