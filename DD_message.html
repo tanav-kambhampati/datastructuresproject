@@ -4,8 +4,6 @@ permalink: /message/
 title: Message
 ---
 
-
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,16 +32,6 @@ title: Message
         $(document).ready(function () { 
             // Function to load conversations
             function loadConversations() {
-                $.get("http://127.0.0.1:8064/api/message/conversation", function (data) {
-                    $("#conversation-list").empty();
-                    data.forEach(function (conversation) {
-                        $("#conversation-list").append('<li data-conversation-id="' + conversation.id + '">' + conversation.name + '</li>');
-                    });
-                });
-            }
-
-            // Function to load messages for a specific conversation
-            function loadConversations() {
                 $.get("http://127.0.0.1:8064/api/message")
                     .done(function (data) {
                         $("#conversation-list").empty();
@@ -57,7 +45,7 @@ title: Message
             }
 
             // Load conversations when the page loads
-//            loadConversations();
+            loadConversations();
 
             // Load messages for the selected conversation when a conversation is clicked
             $(document).on("click", "#conversation-list li", function () {
@@ -67,9 +55,15 @@ title: Message
                 $(this).addClass("active");
             });
 
+            // Function to load messages for a specific conversation
+            function loadMessages(conversationId) {
+                // Implement this function to load messages for a specific conversation
+                // You can make an AJAX request to your backend to fetch messages
+            }
+
             // Function to send a message
             function sendMessage(conversationId, messageContent) {
-                $.post("http://127.0.0.1:8064/message", { conversationId: conversationId, content: messageContent }, function (data) {
+                $.post("http://127.0.0.1:8064/api/message", { conversationId: conversationId, content: messageContent }, function (data) {
                     loadMessages(conversationId);
                 });
             }
