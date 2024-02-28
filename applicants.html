@@ -86,6 +86,7 @@ permalink: /applicants/
                 <th>User ID</th>
                 <th>Name</th>
                 <th>Status</th>
+                <th>View Application</th>
         
               </tr>
             </thead>
@@ -96,13 +97,13 @@ permalink: /applicants/
     
     <script>
         let urlParams = new URLSearchParams(window.location.search);
-        let jobdetails = urlParams.get('id');   
+        let jobid = urlParams.get('jobid');   
     
         // prepare HTML result container for new output
         const resultContainer = document.getElementById("results");
       
     
-        const displayApplicantsUrl = 'http://127.0.0.1:8064/api/jobuser/whoapplied?id=' + jobdetails;
+        const displayApplicantsUrl = 'http://127.0.0.1:8064/api/jobuser/whoapplied?id=' + jobid;
         const displayApplicantsHeaders = {
           method: 'GET', // *GET, POST, PUT, DELETE, etc.
           mode: 'cors', // no-cors, *cors, same-origin
@@ -125,25 +126,19 @@ permalink: /applicants/
       
             }
             response.json().then(data => {
-                for (const row of data) {
-                    const tr = document.createElement("tr");
-                    const uid = document.createElement("td");
-                    const name = document.createElement("td");
-                    const status = document.createElement("td");
-             
           
-                    uid.innerHTML = row.uid;
-                    name.innerHTML = row.name;
-                    status.innerHTML = row.status;
-              
-                    tr.appendChild(uid);
-                    tr.appendChild(name);
-                    tr.appendChild(status);
-               
-          
-                    resultContainer.appendChild(tr);
-                  }
+              data.forEach(row => {
+                  const tr = document.createElement("tr");
+                  tr.innerHTML = `
+                      <td>${row.id}</td>
+                      <td>${row.name}</td>
+                      <td>${row.status}</td>
+                      <td><a href="/joblyFrontend/viewapplication?userid=${row.id}&jobid=${jobid}">View Application</a></td>
+                     
+                  `;
+                  resultContainer.appendChild(tr);
               });
+            });
           })
           .catch(err => {
             // Error handling

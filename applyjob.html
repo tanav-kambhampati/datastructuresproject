@@ -44,8 +44,8 @@ permalink: /applyjob/
                     <td><textarea id="email" name="email" required></textarea></td>
                 </tr>
                 <tr>
-                    <td><label for="location">Location</label></td>
-                    <td><textarea id="location" name="location" required></textarea></td>
+                    <td><label for="separationFactor">What separates you from others?</label></td>
+                    <td><textarea id="separationFactor" name="separationFactor" required></textarea></td>
                 </tr>
                 
                
@@ -122,34 +122,40 @@ permalink: /applyjob/
           }
         }
         return "";
-      }
-
+      } 
+  
   function applyJob() {
       // Extract data from inputs
       //const name = document.getElementById("name").value;
       //const password = document.getElementById("password").value;
       //const dob = document.getElementById("dob").value;
+      const address = document.getElementById('address').value;
+    const email = document.getElementById('email').value;
+    console.log(email)
+    const separationFactor = document.getElementById('separationFactor').value;
       userid = getCookie("userid");
       // Prepare data for POST request
-      const userData = {
-          jobid: jobid,
-          userid: userid
+      const applicationDetails = {
+          address: address,
+          email: email,
+          separationFactor: separationFactor
       };
-  
+      
       // Prepare request options
-      const requestOptions = {
+      const applicationDetailsHeader = {
           method: 'POST',
           headers: new Headers({'content-type': 'application/json'}),
-          body: JSON.stringify(userData), // Convert data object to JSON string
+          credentials: 'include',
+          body: JSON.stringify(applicationDetails), // Convert data object to JSON string
           mode: 'cors',
       };
   
       // URL for Create API
       // const url = 'http://127.0.0.1:8064/api/jwt_auth/register';
-     const url = 'http://127.0.0.1:8064/api/jobuser/';
+     const applicationDetailsUrl = 'http://127.0.0.1:8064/api/job/submitapplication?jobid=' + jobid + '&userid=' + userid;
      
       // Async fetch API call to the database to create a new user
-      fetch(url, requestOptions)
+      fetch(applicationDetailsUrl, applicationDetailsHeader)
           .then(response => {
               // Handle server response
               if (response.status !== 200) {

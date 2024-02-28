@@ -190,7 +190,7 @@ title: Profile
                     <td>${row.qualification}</td>
                     <td>${row.pay}</td>
           
-                    <td><a href="/joblyFrontend/applicants?id=${row.id}">View Applicants</a></td>
+                    <td><a href="/joblyFrontend/applicants?jobid=${row.id}">View Applicants</a></td>
                     <td><a href="/joblyFrontend/editjob?id=${row.id}">Edit Job</a></td>
                 `;
                 resultContainer.appendChild(tr);
@@ -224,6 +224,7 @@ title: Profile
     
           }
           response.json().then(data => {
+            editColumn.innerHTML = 'Edit Application Details';
             data.forEach(row => {
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
@@ -235,6 +236,7 @@ title: Profile
                     <td>${row.qualification}</td>
                     <td>${row.pay}</td>
                     <td><a href="/joblyFrontend/jobdetails?id=${row.id}">View Job</a></td>
+                    <td><a href="/joblyFrontend/editapplication?id=${row.id}">Edit Application</a></td>
                 `;
                 resultContainer.appendChild(tr);
             });
