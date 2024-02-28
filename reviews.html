@@ -1,0 +1,102 @@
+---
+layout: base
+permalink: /review/
+title: Reviews
+---
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Finder Reviews</title>
+    <style>
+        /* Your CSS styles for the review section */
+    </style>
+</head>
+<body>
+    <h1>Job Finder Reviews</h1>
+    
+    <div id="review-form">
+        <h2>Leave a Review</h2>
+        <select id="rating">
+            <option value="1">1 Star</option>
+            <option value="2">2 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="5">5 Stars</option>
+        </select>
+        <textarea id="comment" placeholder="Write your review here..."></textarea>
+        <button id="submit-review-btn" onclick="submitApplication()">Submit Review</button>
+    </div>
+    
+    <div id="reviews-list">
+        <h2>Recent Reviews</h2>
+        <ul id="recent-reviews">
+            <!-- Recent reviews will be dynamically added here -->
+        </ul>
+    </div>
+
+    <script>
+        function submitApplication() {
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+              }
+              if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+              }
+            }
+            return "";
+          } 
+
+          userid = getCookie("userid")
+          comment = document.getElementById("comment").value;
+          rating = document.getElementById("rating").value;
+
+          const userData = {
+            comment: comment,
+            rating: rating
+          };
+    
+        const submitApplicationUrl = 'http://127.0.0.1:8064/api/review?userid=' + userid;
+        const submitApplicationHeader = {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          // mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'include',
+        body: JSON.stringify(userData),
+          headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        };
+        // fetch the API
+        fetch(submitApplicationUrl, submitApplicationHeader)
+        
+          .then(response => {
+            console.log(response)
+            // Error handling
+            if (response.status !== 200) {
+              const errorMsg = 'Database response error: ' + response.status;
+              console.log(errorMsg);
+      
+            }
+            response.json().then(data => {
+                window.location.href = "{{site.baseurl}}/jobauth"
+            });
+          })
+          .catch(err => {
+            // Error handling
+            console.error(err);
+         
+          });
+    
+        }    
+    </script>
+</body>
+</html>
