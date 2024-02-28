@@ -65,16 +65,11 @@ title: Reviews
     
         const submitApplicationUrl = 'http://127.0.0.1:8064/api/review?userid=' + userid;
         const submitApplicationHeader = {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          // mode: 'cors', // no-cors, *cors, same-origin
-          cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: 'include',
-        body: JSON.stringify(userData),
-          headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        };
+          method: 'POST',
+         
+          body: JSON.stringify(userData), // Convert data object to JSON string
+         
+      };
         // fetch the API
         fetch(submitApplicationUrl, submitApplicationHeader)
         
