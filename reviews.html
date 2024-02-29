@@ -50,7 +50,7 @@ title: Reviews
             // Handle submission of a new review
             $("#submit-review-btn").click(function () {
                 var rating = $("#rating").val();
-                var reviewText = $("#review-text").val();
+                var comment = $("#comment").val();
 
                 $.post("http://127.0.0.1:8064/api/review", { rating: rating, comment: comment }, function (response) {
                     alert(response.message); // Display success message
@@ -124,3 +124,16 @@ title: Reviews
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
