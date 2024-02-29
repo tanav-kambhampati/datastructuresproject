@@ -1,7 +1,8 @@
 ---
 layout: base
-
-
+permalink: /review/
+title: Reviews
+---
 
 
 <html lang="en">
@@ -47,19 +48,6 @@ layout: base
                 });
             });
 
-            // Handle submission of a new review
-            $("#submit-review-btn").click(function () {
-                var rating = $("#rating").val();
-                var comment = $("#comment").val();
-
-                $.post("http://127.0.0.1:8064/api/review", { rating: rating, comment: comment }, function (response) {
-                    alert(response.message); // Display success message
-                    // Reload the page to show the newly added review (You can also append it dynamically without page reload)
-                    location.reload();
-                }).fail(function (xhr, status, error) {
-                    alert(xhr.responseJSON.error); // Display error message if request fails
-                });
-            });
         });
     
   
@@ -83,19 +71,27 @@ layout: base
             return "";
           } 
 
-          userid = getCookie("userid")
           comment = document.getElementById("comment").value;
+          console.log(comment)
           rating = document.getElementById("rating").value;
+          console.log(rating)
 
           const userData = {
             comment: comment,
             rating: rating
           };
     
-        const submitApplicationUrl = 'http://127.0.0.1:8064/api/review?userid=' + userid;
+        const submitApplicationUrl = 'http://127.0.0.1:8064/api/review/';
         const submitApplicationHeader = {
           method: 'POST',
-         
+          //mode: 'cors',
+          headers: { 'Content-Type': 'application/json'
+         /* 'Access-Control-Allow-Origin': 'http://127.0.0.1:4100/joblyFrontend', 
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Allow-Credentials': 'true',*/
+        },
+
           body: JSON.stringify(userData), // Convert data object to JSON string
          
       };
@@ -110,9 +106,6 @@ layout: base
               console.log(errorMsg);
       
             }
-            response.json().then(data => {
-                window.location.href = "{{site.baseurl}}/jobauth"
-            });
           })
           .catch(err => {
             // Error handling
