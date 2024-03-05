@@ -36,22 +36,47 @@ title: Reviews
             <!-- Recent reviews will be dynamically added here -->
         </ul>
     </div>
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-       
-        $(document).ready(function () {
-            // Load recent reviews when the page loads
-            $.get("http://127.0.0.1:8064/api/review", function (data) {
-                data.forEach(function (review) {
-                    $("#recent-reviews").append(`<li>${review.rating} Stars - ${review.comment}</li>`);
-                });
-            });
 
-        });
-    
+    <style>
+      /* Your CSS styles for the review section */
+      .review-box {
+          border: 1px solid #ccc;
+          padding: 10px;
+          margin-bottom: 10px;
+      }
   
-    </script>
+      .rating {
+          color: gold;
+      }
+  </style>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+      $(document).ready(function () {
+          // Load recent reviews when the page loads
+          $.get("http://127.0.0.1:8064/api/review", function (data) {
+              data.forEach(function (review) {
+                  // Create a div for each review
+                  const reviewBox = $('<div class="review-box"></div>');
+  
+                  // Add shaded stars based on the rating
+                  let stars = '';
+                  for (let i = 0; i < review.rating; i++) {
+                      stars += '★';
+                  }
+  
+                  // Append the rating and comment to the review box
+                  reviewBox.append(`<p class="rating">${stars}</p>`);
+                  reviewBox.append(`<p>${review.comment}</p>`);
+  
+                  // Append the review box to the recent reviews list
+                  $("#recent-reviews").append(reviewBox);
+              });
+          });
+      });
+  </script>
+
 
     <script>
         function submitApplication() {
