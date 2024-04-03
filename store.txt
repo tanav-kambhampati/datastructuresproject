@@ -3,7 +3,7 @@
     <script>
         $(document).ready(function () {
             // Load recent reviews when the page loads
-            $.get("http://127.0.0.1:8420/api/review", function (data) {
+            $.get("http://127.0.0.1:8064/api/review", function (data) {
                 data.forEach(function (review) {
                     $("#recent-reviews").append(`<li>${review.rating} Stars - ${review.comment}</li>`);
                 });
@@ -14,7 +14,7 @@
                 var rating = $("#rating").val();
                 var reviewText = $("#review-text").val();
 
-                $.post("http://127.0.0.1:8420/api/review", { rating: rating, comment: comment }, function (response) {
+                $.post("http://127.0.0.1:8064/api/review", { rating: rating, comment: comment }, function (response) {
                     alert(response.message); // Display success message
                     // Reload the page to show the newly added review (You can also append it dynamically without page reload)
                     location.reload();

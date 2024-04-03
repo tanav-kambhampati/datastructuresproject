@@ -54,7 +54,7 @@ title: Reviews
   <script>
       $(document).ready(function () {
           // Load recent reviews when the page loads
-          $.get("http://127.0.0.1:8420/api/review", function (data) {
+          $.get("http://127.0.0.1:8064/api/review", function (data) {
               data.forEach(function (review) {
                   // Create a div for each review
                   const reviewBox = $('<div class="review-box"></div>');
@@ -105,7 +105,7 @@ title: Reviews
             rating: rating
           };
     
-        const submitApplicationUrl = 'http://127.0.0.1:8420/api/review/';
+        const submitApplicationUrl = 'http://127.0.0.1:8064/api/review/';
         const submitApplicationHeader = {
           method: 'POST',
           //mode: 'cors',

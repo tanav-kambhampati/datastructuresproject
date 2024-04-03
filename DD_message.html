@@ -32,7 +32,7 @@ title: Message
         $(document).ready(function () { 
             // Function to load conversations
             function loadConversations() {
-                $.get("http://127.0.0.1:8420/api/message")
+                $.get("http://127.0.0.1:8064/api/message")
                     .done(function (data) {
                         $("#conversation-list").empty();
                         data.forEach(function (conversation) {
@@ -63,7 +63,7 @@ title: Message
 
             // Function to send a message
             function sendMessage(conversationId, messageContent) {
-                $.post("http://127.0.0.1:8420/api/message", { conversationId: conversationId, content: messageContent }, function (data) {
+                $.post("http://127.0.0.1:8064/api/message", { conversationId: conversationId, content: messageContent }, function (data) {
                     loadMessages(conversationId);
                 });
             }

@@ -127,8 +127,8 @@ title: Profile
     };
 
     // URL for Create API
-    // const url = 'http://127.0.0.1:8420/api/jwt_auth/register';
-   const getUserStatusUrl = 'http://127.0.0.1:8420/api/jobuser/userstatus?userid=' + userid;
+    // const url = 'http://127.0.0.1:8064/api/jwt_auth/register';
+   const getUserStatusUrl = 'http://127.0.0.1:8064/api/jobuser/userstatus?userid=' + userid;
     // Async fetch API call to the database to create a new user
     fetch(getUserStatusUrl, getUserStatusHeader)
     .then(response => {
@@ -166,8 +166,8 @@ title: Profile
         };
     
         // URL for Create API
-        // const url = 'http://127.0.0.1:8420/api/jwt_auth/register';
-       const getJobsPostedUrl = 'http://127.0.0.1:8420/api/jobuser/profile?userid=' + userid;
+        // const url = 'http://127.0.0.1:8064/api/jwt_auth/register';
+       const getJobsPostedUrl = 'http://127.0.0.1:8064/api/jobuser/profile?userid=' + userid;
         // Async fetch API call to the database to create a new user
         fetch(getJobsPostedUrl, getJobsPostedHeader)
         .then(response => {
@@ -212,8 +212,8 @@ title: Profile
         };
     
         // URL for Create API
-        // const url = 'http://127.0.0.1:8420/api/jwt_auth/register';
-       const getJobsAppliedToUrl = 'http://127.0.0.1:8420/api/jobuser/profile?userid=' + userid;
+        // const url = 'http://127.0.0.1:8064/api/jwt_auth/register';
+       const getJobsAppliedToUrl = 'http://127.0.0.1:8064/api/jobuser/profile?userid=' + userid;
         // Async fetch API call to the database to create a new user
         fetch(getJobsAppliedToUrl, getJobsAppliedToHeader)
         .then(response => {
