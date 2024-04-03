@@ -1,0 +1,19 @@
+Team assessment (2 triangles). Blending and evaluation of required Data Structures in Project.
+
+PBL - Blending projects
+Start a 2-triangle managed GitHub pages for all frontend for ML and blend together with your old projects.  
+Start 2-triangle managed Flask for all backend for single JWT User database, and ML additions.
+Consolidate to one JWT user database.  
+Create distinct ML solutions with multiple endpoints to match distinct theme of individual CPT needs.
+Form an "About" page in team GitHub pages that has progressive plans for the triangle.  
+Use About menu in team GitHub Page  to link to  personal GitHub Pages.  
+Personal pages would have original CPT project, links to key pull requests, personal research, CB assignments/history.  
+Enable usage of Data Types
+Primitive Data Types versus Objects
+Reference Data Types (Arrays, HashMaps)
+Enable usages of 1D, 2D Arrays
+Pandas Data Frames
+2D structures using images
+Enable usage of HashMap
+JavaScript, JSON, and APIs
+Python Dictionary, SQL, JSONB
