@@ -1,0 +1,45 @@
+---
+title: MachineLearning
+layout: Base
+permalink: /machinelearning
+---
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Data Input</title>
+</head>
+<body>
+    <h1>Salary Data Input</h1>
+    <form id="vehicleForm">
+        <label for="Salary">Salary:</label>
+        <input type="number" id="Salary" name="Salary" required><br><br>
+        <input type="submit" value="Predict" onclick="predict_vehicle_success()">
+    </form>
+</body>
+    <script>
+        function predict_vehicle_success() {
+            var form = document.getElementById('vehicleForm');
+            var formData = new FormData(form);
+            fetch('http://127.0.0.1:8064/api/vehicles/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(Object.fromEntries(formData))
+            })
+            .then(response => response.json())
+            .then(data => {
+                var resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = '<h2>Prediction Result</h2>';
+                for (var key in data) {
+                    resultDiv.innerHTML += '<p>' + key + ': ' + data[key] + '</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
